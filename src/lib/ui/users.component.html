@@ -1,0 +1,49 @@
+<page-title [title]="'Users'"></page-title>
+<page-actions (search)="search()" (create)="showChildComponent(childComponents.createUser)"></page-actions>
+<app-offcanvas id="user-forms" [title]="childComponentSelected && childComponentSelected?.title" [visible]="childSelected" (visibleChange)="hideChildComponent($event)">
+  <create-user *ngIf="isComponentSelected(childComponents.createUser)" (created)="onCreated()" ></create-user>
+  <edit-user *ngIf="isComponentSelected(childComponents.editUser)"></edit-user>
+</app-offcanvas>
+
+<div class="animated fadeIn dt" #dtContainer>
+  <div class="row">
+    <div class="col-md-12 my-2">
+      <span class="float-end">Total: {{ pagination.total }}</span>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <ngx-datatable
+        class="material"
+        [rows]="sb.users$ | async"
+        [columns]="[{ name: 'Select' }, { name: 'name' }, { name: 'email' }]"
+        [columnMode]="'force'"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        [rowHeight]="43"
+        [externalPaging]="true"
+        [count]="pagination.total"
+        [offset]="getOffsetFromPagination()"
+        [limit]="pagination.perPage"
+        [selected]="selected"
+        [selectionType]="'checkbox'"
+        (select)="onSelect($event)"
+        (page)="setPage($event)"
+      >
+        <ngx-datatable-column [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true"></ngx-datatable-column>
+
+        <ngx-datatable-column name="Name" [flexGrow]="3" [minWidth]="200">
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <a (click)="edit(row)">{{ value }}</a>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Email" [flexGrow]="3" [minWidth]="200">
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            {{ value }}
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</div>

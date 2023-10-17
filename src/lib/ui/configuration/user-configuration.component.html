@@ -1,0 +1,51 @@
+<form novalidate autocomplete="off" [formGroup]="formGroup" (ngSubmit)="update()">
+  <div class="animated fadeIn row mb-2">
+    <div class="col-sm-12">
+      <button type="submit" class="btn btn-primary float-end ms-2" [disabled]="!formGroup.valid"><i class="fa fa-save"></i> Save all</button>
+    </div>
+  </div>
+
+  <div class="">
+    <tabset>
+      <!--  Time Zone tab -->
+      <tab heading="Time Zone">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="card">
+              <div class="card-body">
+                <!-- Time Zone Info section -->
+                <div formGroupName="timing">
+                  <div formGroupName="timeZoneInfo">
+                    <div class="col-sm-12" formGroupName="iana">
+                      <div class="form-group required">
+                        <label><h5>Time Zone Information</h5></label><br />
+                        <label><h6>Time Zone ID (IANA)</h6></label>
+                        <div class="input-group mb-3 required">
+                          <input type="text" formControlName="timeZoneId" class="form-control" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--  Clock Provider Info section -->
+                <div class="col-sm-12" formGroupName="clock">
+                  <div class="form-group required">
+                    <label><h6>Clock Provider</h6></label>
+                    <div class="input-group mb-3 required">
+                      <select formControlName="provider" class="form-control" placeholder="Select Clock Provider">
+                        <option value="unspecifiedClockProvider">Clock Provider</option>
+                        <option value="Providerclock">Provider Clock</option>
+                        <option value="serviceProvider">Service Provider</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </tab>
+      <!-- End Invoice tabs -->
+    </tabset>
+  </div>
+</form>

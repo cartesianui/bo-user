@@ -1,0 +1,130 @@
+<page-actions
+  (update)="onUpdate()"
+  (attach)="onAttach()"
+  (revoke)="onRevoke()"
+  [disabled]="{
+    update: formGroup.invalid || formGroupCredentails.invalid || !(formGroup.dirty || formGroupCredentails.dirty),
+    attach: rolesToAttach.length < 1,
+    revoke: rolesToRevoke.length < 1
+  }"
+>
+<button  [disabled]="permissionsToAttach.length < 1" class="btn btn-success ms-1" (click)="onAttachPermissions()"> <i class="fa fa-lock-open"></i> Attach Permission</button>
+<button  [disabled]="permissionsToRevoke.length < 1" class="btn btn-warning ms-1" (click)="onRevokePermissions()"> <i class="fa fa-lock"></i> Revoke Permission</button>
+</page-actions>
+
+<div class="animated fadeIn">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header"><strong>Profile</strong></div>
+        <div class="card-body">
+          <form autocomplete="off" [formGroup]="formGroup">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <with-validation>
+                    <label>Name</label>
+                    <input validate type="text" formControlName="name" class="form-control" placeholder="Name" required />
+                  </with-validation>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <with-validation>
+                    <label>Gender</label>
+                    <select validate type="text" formControlName="gender" class="form-select" required inCollection="['male', 'female']">
+                      <option value="" disabled hidden>Gender</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                    </select>
+                  </with-validation>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <with-validation>
+                    <label>Birth Date</label>
+                    <input validate bsDatepicker type="text" formControlName="birth" class="form-control" placeholder="Birth Date" required age="18" />
+                  </with-validation>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card mt-2">
+        <div class="card-header"><strong>Security</strong></div>
+        <div class="card-body">
+          <form autocomplete="off" [formGroup]="formGroupCredentails">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <with-validation>
+                    <label>Current Password</label>
+                    <input validate formControlName="currentPassword" type="password" class="form-control" placeholder="Current Password" requireRelativeTo="newPassword" />
+                  </with-validation>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <with-validation>
+                    <label>New Password</label>
+                    <input validate formControlName="newPassword" type="password" class="form-control" placeholder="New Password" requireRelativeTo="currentPassword" minlength="8" />
+                  </with-validation>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <with-validation>
+                    <label>Confirm Password</label>
+                    <input validate formControlName="confirmPassword" type="password" class="form-control" placeholder="Confirm Password" equalTo="newPassword" />
+                  </with-validation>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <roles-lookup [(selected)]="rolesToAttach" [ignoreOptions]="user.roles?.data" />
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>User Roles</strong>
+        </div>
+        <div class="card-body">
+          <roles-list [rows]="user?.roles?.data" [(selected)]="rolesToRevoke" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <permissions-lookup [(selected)]="permissionsToAttach" [ignoreOptions]="user.permissions?.data" />
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>User Permissions</strong>
+        </div>
+        <div class="card-body">
+          <permissions-list [rows]="user?.permissions?.data" [(selected)]="permissionsToRevoke" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

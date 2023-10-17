@@ -1,0 +1,54 @@
+<page-actions
+  (save)="save()"
+  [disabled]="{
+    save: formGroup.invalid
+  }"
+></page-actions>
+
+<div class="animated fadeIn row">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header"><strong>New User</strong></div>
+        <div class="card-body">
+          <form autocomplete="off" [formGroup]="formGroup">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <with-validation>
+                    <label>Name</label>
+                    <input validate type="text" formControlName="name" class="form-control" placeholder="Name" required />
+                  </with-validation>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <with-validation>
+                    <label>Email</label>
+                    <input validate type="text" formControlName="email" class="form-control" placeholder="Email" required email />
+                  </with-validation>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <with-validation>
+                    <label>Password</label>
+                    <input validate type="password" formControlName="password" class="form-control" placeholder="Password" required minlength="8" />
+                  </with-validation>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <with-validation>
+                    <label>Confirm Password</label>
+                    <input validate type="password" formControlName="confirmPassword" class="form-control" placeholder="Password" required equalTo="password" />
+                  </with-validation>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
