@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { StoreModule } from '@ngrx/store';
@@ -12,7 +11,6 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { AxisHttpInterceptor } from '@cartesianui/core';
 import { CommonModule as CartesianCommonModule } from '@cartesianui/common';
 import { FormsModule as CartesianFormModule } from '@cartesianui/forms';
 import { BoLayoutModule } from '@cartesianui/coreui';
@@ -51,7 +49,7 @@ import { UserConfigurationComponent } from './ui/configuration/user-configuratio
     AuthModule
   ],
   declarations: [UserComponent, UsersComponent, CreateUserComponent, EditUserComponent, UserConfigurationComponent],
-  providers: [UserHttpService, UserSandbox, { provide: HTTP_INTERCEPTORS, useClass: AxisHttpInterceptor, multi: true }],
+  providers: [UserHttpService, UserSandbox],
   exports: []
 })
 export class UserModule {}
