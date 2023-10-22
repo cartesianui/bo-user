@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { IAxisResponse } from '@cartesianui/core';
+import { ICartesianResponse } from '@cartesianui/core';
 import { UserHttpService } from '../user-http.service';
 import { UserActions } from './user.actions';
 
@@ -20,7 +20,7 @@ export class UserEffects {
       map(({ criteria }) => criteria),
       switchMap((criteria) => {
         return this.httpService.users(criteria).pipe(
-          map(({ data, meta }: IAxisResponse) => UserActions.loadUsers({ users: data, meta }))
+          map(({ data, meta }: ICartesianResponse) => UserActions.loadUsers({ users: data, meta }))
           //catchError((error) => of(userActions.doFetchUsersFail()))
         );
       })
@@ -33,12 +33,12 @@ export class UserEffects {
       map(({ user }) => user),
       switchMap((user) => {
         return this.httpService.createUser(user).pipe(
-          map(({ data }: IAxisResponse) =>
+          map(({ data }: ICartesianResponse) =>
             UserActions.createSuccess({
               user: data
             })
           ),
-          catchError(({ errors, message }: IAxisResponse) => of(UserActions.createFailure({ errors, message })))
+          catchError(({ errors, message }: ICartesianResponse) => of(UserActions.createFailure({ errors, message })))
         );
       })
     )
@@ -50,12 +50,12 @@ export class UserEffects {
       map(({ user }) => user),
       switchMap(({ id, changes }) => {
         return this.httpService.updateUser(id as string, changes).pipe(
-          map(({ data }: IAxisResponse) =>
+          map(({ data }: ICartesianResponse) =>
             UserActions.updateSuccess({
               user: data
             })
           ),
-          catchError(({ errors, message }: IAxisResponse) => of(UserActions.updateFailure({ errors, message })))
+          catchError(({ errors, message }: ICartesianResponse) => of(UserActions.updateFailure({ errors, message })))
         );
       })
     )
@@ -87,8 +87,8 @@ export class UserEffects {
       map(({ form }) => form),
       switchMap((form) =>
         this.httpService.assignRole(form).pipe(
-          switchMap(({ data }: IAxisResponse) => of(UserActions.updateUser({ user: data }), UserActions.updateSuccess({ user: data }))),
-          catchError(({ errors, message }: IAxisResponse) => of(UserActions.updateFailure({ errors, message })))
+          switchMap(({ data }: ICartesianResponse) => of(UserActions.updateUser({ user: data }), UserActions.updateSuccess({ user: data }))),
+          catchError(({ errors, message }: ICartesianResponse) => of(UserActions.updateFailure({ errors, message })))
         )
       )
     )
@@ -100,8 +100,8 @@ export class UserEffects {
       map(({ form }) => form),
       switchMap((form) =>
         this.httpService.revokeRole(form).pipe(
-          switchMap(({ data }: IAxisResponse) => of(UserActions.updateUser({ user: data }), UserActions.updateSuccess({ user: data }))),
-          catchError(({ errors, message }: IAxisResponse) => of(UserActions.updateFailure({ errors, message })))
+          switchMap(({ data }: ICartesianResponse) => of(UserActions.updateUser({ user: data }), UserActions.updateSuccess({ user: data }))),
+          catchError(({ errors, message }: ICartesianResponse) => of(UserActions.updateFailure({ errors, message })))
         )
       )
     )
@@ -113,8 +113,8 @@ export class UserEffects {
       map((payload) => payload),
       switchMap(({ id, form }) =>
         this.httpService.attachPermissions(id, form).pipe(
-          switchMap(({ data }: IAxisResponse) => of(UserActions.updateUser({ user: data }), UserActions.updateSuccess({ user: data }))),
-          catchError(({ errors, message }: IAxisResponse) => of(UserActions.updateFailure({ errors, message })))
+          switchMap(({ data }: ICartesianResponse) => of(UserActions.updateUser({ user: data }), UserActions.updateSuccess({ user: data }))),
+          catchError(({ errors, message }: ICartesianResponse) => of(UserActions.updateFailure({ errors, message })))
         )
       )
     )
@@ -126,8 +126,8 @@ export class UserEffects {
       map((payload) => payload),
       switchMap(({ id, form }) =>
         this.httpService.revokePermissions(id, form).pipe(
-          switchMap(({ data }: IAxisResponse) => of(UserActions.updateUser({ user: data }), UserActions.updateSuccess({ user: data }))),
-          catchError(({ errors, message }: IAxisResponse) => of(UserActions.updateFailure({ errors, message })))
+          switchMap(({ data }: ICartesianResponse) => of(UserActions.updateUser({ user: data }), UserActions.updateSuccess({ user: data }))),
+          catchError(({ errors, message }: ICartesianResponse) => of(UserActions.updateFailure({ errors, message })))
         )
       )
     )

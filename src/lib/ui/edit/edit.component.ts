@@ -4,6 +4,7 @@ import { BaseComponent, DatetimeService } from '@cartesianui/common';
 import { Role, Permission } from '@cartesianui/bo-auth';
 import { User, UserPermission, UserRole } from '../../models';
 import { UserSandbox } from '../../user.sandbox';
+import { TabDirective } from 'ngx-bootstrap/tabs';
 
 @Component({
   selector: 'edit-user',
@@ -30,6 +31,8 @@ export class EditUserComponent extends BaseComponent implements OnInit, OnDestro
     newPassword: new FormControl('', []),
     confirmPassword: new FormControl('', [])
   });
+
+  activeTab: string = "General";
 
   constructor(
     protected injector: Injector,
@@ -110,5 +113,9 @@ export class EditUserComponent extends BaseComponent implements OnInit, OnDestro
     });
     this.sb.attachPermissions(this.user.id, form);
     this.permissionsToAttach = [];
+  }
+
+  onSelectTab(data: TabDirective): void {
+    this.activeTab = data.heading;
   }
 }
