@@ -12,7 +12,6 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { CommonModule as CartesianCommonModule } from '@cartesianui/common';
-import { FormsModule as CartesianFormModule } from '@cartesianui/forms';
 import { BoLayoutModule } from '@cartesianui/coreui';
 import { AuthModule } from '@cartesianui/bo-auth';
 
@@ -35,7 +34,6 @@ import { UserConfigurationComponent } from './ui/configuration/user-configuratio
     FormsModule,
     ReactiveFormsModule,
     CartesianCommonModule.forFeature(),
-    CartesianFormModule.forFeature(),
     BoLayoutModule.forFeature(),
     UserRoutingModule,
     BsDropdownModule.forRoot(),
