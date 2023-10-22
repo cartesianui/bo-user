@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Injector, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BaseComponent } from '@cartesianui/common';
-import { Configuration, ConfigurationSandbox } from '@cartesianui/bo-configuration';
+// import { Configuration, ConfigurationSandbox } from '@cartesianui/bo-configuration';
 
 @Component({
   selector: 'user-configuration',
@@ -25,11 +25,11 @@ export class UserConfigurationComponent extends BaseComponent implements OnInit,
   loading: boolean;
   loaded: boolean;
   failed: boolean;
-  configuration: Configuration;
+  // configuration: Configuration;
 
   constructor(
     injector: Injector,
-    protected _sandbox: ConfigurationSandbox
+    // protected _sandbox: ConfigurationSandbox
   ) {
     super(injector);
   }
@@ -41,13 +41,13 @@ export class UserConfigurationComponent extends BaseComponent implements OnInit,
 
   update() {
     const configurations = this.formGroup.value;
-    const form = new Configuration({
-      id: this.configuration.id,
-      key: 'user',
-      configuration: configurations
-    });
+    // const form = new Configuration({
+    //   id: this.configuration.id,
+    //   key: 'user',
+    //   configuration: configurations
+    // });
 
-    this._sandbox.updateConfiguration(form);
+    // this._sandbox.updateConfiguration(form);
   }
 
   addSubscriptions() {
@@ -63,7 +63,7 @@ export class UserConfigurationComponent extends BaseComponent implements OnInit,
   }
 
   fetchConfiguration() {
-    this._sandbox.fetchConfigurationByType('user');
+    // this._sandbox.fetchConfigurationByType('user');
   }
 
   getFormClasses(controlName: string): string {
