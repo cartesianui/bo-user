@@ -6,8 +6,7 @@
     "@angular/core": "^16.2.2",
     "@angular/forms": "^16.2.2",
     "@cartesianui/core": "^1.0.1",
-    "@cartesianui/common": "^0.1.0",
-    "@cartesianui/forms": "^0.1.0"
+    "@cartesianui/common": "^0.1.0"
   },
   "dependencies": {
     "tslib": "^2.4.0"
