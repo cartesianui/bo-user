@@ -17,26 +17,31 @@ export const initialState: UserState = adapter.getInitialState({
   selected: null,
   meta: null,
   request: requestDefault,
-  creation: requestDefault,
-  updation: requestDefault
+  create: requestDefault,
+  update: requestDefault,
+  get: requestDefault,
+  delete: requestDefault
 });
 
 export const reducer = createReducer(
   initialState,
   on(UserActions.createUser, (state, { user }) => {
-    return { ...state, creation: { ...requestStarted } };
+    return { ...state, create: { ...requestStarted } };
   }),
   on(UserActions.createSuccess, (state, { user }) => {
-    return { ...state, selected: user, creation: { ...requestCompleted } };
+    return { ...state, selected: user, create: { ...requestCompleted } };
   }),
   on(UserActions.createFailure, (state, { errors, message }) => {
-    return { ...state, creation: { ...requestFailed } };
+    return { ...state, create: { ...requestFailed } };
   }),
   on(UserActions.updateSuccess, (state, { user }) => {
-    return { ...state, selected: user, updation: { ...requestCompleted } };
+    return adapter.updateOne(
+      { id: user.id, changes: { ...user } }, // 👈 replaces the entity
+      { ...state, selected: user, update: { ...requestCompleted } }
+    );
   }),
   on(UserActions.updateFailure, (state, { errors, message }) => {
-    return { ...state, updation: { ...requestFailed } };
+    return { ...state, update: { ...requestFailed } };
   }),
   on(UserActions.selectUser, (state, { user }) => {
     return { ...state, selected: user };
@@ -61,10 +66,10 @@ export const usersFeature = createFeature({
     meta: createSelector(selectUsersState, (state: UserState) => state.meta),
     selected: createSelector(selectUsersState, (state: UserState) => state.selected),
     request: createSelector(selectUsersState, (state: UserState) => state.request),
-    creation: createSelector(selectUsersState, (state: UserState) => state.creation),
-    updation: createSelector(selectUsersState, (state: UserState) => state.updation),
+    create: createSelector(selectUsersState, (state: UserState) => state.create),
+    update: createSelector(selectUsersState, (state: UserState) => state.update),
     entities: createSelector(selectUsersState, (state: UserState) => Object.values(state.entities))
   })
 });
 
-export const { selectIds, selectEntities, selectAll, selectTotal, meta, entities, creation, selected } = usersFeature;
+export const { selectIds, selectEntities, selectAll, selectTotal, meta, entities, create, selected } = usersFeature;

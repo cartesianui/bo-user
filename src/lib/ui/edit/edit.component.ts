@@ -76,40 +76,40 @@ export class EditUserComponent extends BaseComponent implements OnInit, OnDestro
   }
 
   onRevoke() {
-    const rolesIds = this.rolesToRevoke.map((role) => role.id);
+    const roleIds = this.rolesToRevoke.map((role) => role.id);
     const form = new UserRole({
       userId: this.user.id,
-      rolesIds
+      roleIds
     });
-    this.sb.detachRoles(form);
+    this.sb.detachRoles(this.user.id, form);
     this.rolesToRevoke = [];
   }
 
   onAttach() {
-    const rolesIds = this.rolesToAttach.map((role) => role.id);
+    const roleIds = this.rolesToAttach.map((role) => role.id);
     const form = new UserRole({
       userId: this.user.id,
-      rolesIds
+      roleIds
     });
-    this.sb.attachRoles(form);
+    this.sb.attachRoles(this.user.id, form);
     this.rolesToAttach = [];
   }
 
   onRevokePermissions() {
-    const permissionsIds = this.permissionsToRevoke.map((permission) => permission.id);
+    const permissionIds = this.permissionsToRevoke.map((permission) => permission.id);
     const form = new UserPermission({
       userId: this.user.id,
-      permissionsIds
+      permissionIds
     });
     this.sb.detachPermissions(this.user.id, form);
     this.permissionsToRevoke = [];
   }
 
   onAttachPermissions() {
-    const permissionsIds = this.permissionsToAttach.map((permission) => permission.id);
+    const permissionIds = this.permissionsToAttach.map((permission) => permission.id);
     const form = new UserPermission({
       userId: this.user.id,
-      permissionsIds
+      permissionIds
     });
     this.sb.attachPermissions(this.user.id, form);
     this.permissionsToAttach = [];

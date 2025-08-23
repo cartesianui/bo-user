@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpService, POST, GET, Body, Criteria, DefaultHeaders, RequestCriteria, Path, DELETE, PATCH } from '@cartesianui/core';
+import { HttpService, POST, GET, Body, Criteria, DefaultHeaders, RequestCriteria, Path, DELETE, PATCH, PUT } from '@cartesianui/core';
 import { User, UserSearch, UserPermission, UserRole } from './models';
 
 @Injectable()
@@ -49,28 +49,28 @@ export class UserHttpService extends HttpService {
     return null;
   }
 
-  @POST('/roles/assign?include=roles,permissions')
-  public assignRole(@Body body: UserRole): Observable<any> {
+  @PATCH('/users/{id}/roles?include=roles,permissions')
+  public assignRole(@Path('id') id: string, @Body body: UserRole): Observable<any> {
     return null;
   }
 
-  @POST('/roles/revoke?include=roles,permissions')
-  public revokeRole(@Body body: UserRole): Observable<any> {
+  @PUT('/users/{id}/roles?include=roles,permissions')
+  public syncRole(@Path('id') id: string, @Body body: UserRole): Observable<any> {
     return null;
   }
 
-  @PATCH('/users/{id}/permissions?include=roles,permissions')
+  @DELETE('/users/{id}/roles?include=roles,permissions')
+  public revokeRole(@Path('id') id: string, @Body body: UserRole): Observable<any> {
+    return null;
+  }
+
+  @POST('/users/{id}/permissions?include=roles,permissions')
   public attachPermissions(@Path('id') id: string, @Body body: UserPermission): Observable<any> {
     return null;
   }
 
   @DELETE('/users/{id}/permissions?include=roles,permissions')
   public revokePermissions(@Path('id') id: string, @Body body: UserPermission): Observable<any> {
-    return null;
-  }
-
-  @POST('/roles/sync')
-  public syncRole(@Body body: UserPermission): Observable<any> {
     return null;
   }
 }

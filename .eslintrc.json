@@ -10,8 +10,8 @@
       ],
       "parserOptions": {
         "project": [
-          "projects/bo-auth/tsconfig.lib.json",
-          "projects/bo-auth/tsconfig.spec.json"
+          "projects/bo-user/tsconfig.lib.json",
+          "projects/bo-user/tsconfig.spec.json"
         ],
         "createDefaultProgram": true
       },

@@ -47,7 +47,7 @@ export class UsersComponent extends ListingControlsComponent<IUser, UserSearch, 
 
   edit(user: User): void {
     this.sb.selectUser(user);
-    this.showChildComponent(this.childComponents.editUser);
+    this.showChildComponent(this.childComponents.editUser, 'editUser');
   }
 
   search() {
@@ -64,10 +64,5 @@ export class UsersComponent extends ListingControlsComponent<IUser, UserSearch, 
     if (this.selected.length > 0) {
       // do deletion stuff
     }
-  }
-
-  onCreated() {
-    this.list();
-    this.hideChildComponent(false);
   }
 }

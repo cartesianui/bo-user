@@ -28,8 +28,8 @@ export class CreateUserComponent extends FormBaseComponent<User> implements OnIn
 
   addSubscriptions() {
     this.subscriptions.push(
-      this.sb.creationState$.subscribe(({ compeleted }) => {
-        if (compeleted) {
+      this.sb.createState$.subscribe(({ completed }) => {
+        if (completed) {
           this.created.emit(true);
         }
       })

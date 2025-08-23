@@ -11,7 +11,7 @@ export class UserSandbox extends Sandbox {
   public users$ = this.store.pipe(select(fromUser.entities));
   public usersMeta$ = this.store.pipe(select(fromUser.meta));
   public selectedUser$ = this.store.pipe(select(fromUser.selected));
-  public creationState$ = this.store.pipe(select(fromUser.creation));
+  public createState$ = this.store.pipe(select(fromUser.create));
 
   constructor(
     protected store: Store,
@@ -44,12 +44,12 @@ export class UserSandbox extends Sandbox {
     this.store.dispatch(UserActions.deleteUser({ id }));
   };
 
-  public attachRoles(form: UserRole): void {
-    this.store.dispatch(UserActions.attachRoles({ form }));
+  public attachRoles(id: string, form: UserRole): void {
+    this.store.dispatch(UserActions.attachRoles({ id, form }));
   }
 
-  public detachRoles(form: UserRole): void {
-    this.store.dispatch(UserActions.detachRoles({ form }));
+  public detachRoles(id: string, form: UserRole): void {
+    this.store.dispatch(UserActions.detachRoles({ id, form }));
   }
 
   public attachPermissions(id: string, form: UserPermission): void {

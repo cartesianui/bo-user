@@ -28,8 +28,8 @@ export const UserActions = createActionGroup({
     'Update Failure': props<{ errors: IError; message: string }>(),
     'Fetch Users': props<{ criteria: RequestCriteria<UserSearch> }>(),
     'Sync Roles': props<{ form: UserRole }>(),
-    'Attach Roles': props<{ form: UserRole }>(),
-    'Detach Roles': props<{ form: UserRole }>(),
+    'Attach Roles': props<{ id: string, form: UserRole }>(),
+    'Detach Roles': props<{ id: string, form: UserRole }>(),
     'Attach Permissions': props<{ id: string, form: UserPermission }>(),
     'Detach Permissions': props<{ id: string, form: UserPermission }>()
   }
