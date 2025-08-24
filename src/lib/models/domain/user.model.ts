@@ -28,4 +28,11 @@ export class User extends ParentModel implements IUser {
   constructor(data?: IUser) {
     super(data);
   }
+
+  static override get searchForm() {
+    return {
+      name:{ column: 'name', operator: '=', value: null },
+      email: { column: 'email', operator: '=', value: null }
+    };
+  }
 }

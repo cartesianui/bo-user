@@ -2,7 +2,7 @@ import { Injectable, Injector } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { RequestCriteria } from '@cartesianui/core';
 import { Sandbox } from '@cartesianui/common';
-import { User, UserSearch, UserRole, UserPermission } from './models';
+import { User, UserRole, UserPermission } from './models';
 import { UserActions } from './store/user.actions';
 import * as fromUser from './store/user.reducer';
 
@@ -20,7 +20,7 @@ export class UserSandbox extends Sandbox {
     super(injector);
   }
 
-  fetchUsers = (criteria: RequestCriteria<UserSearch>): void => {
+  fetchUsers = (criteria: RequestCriteria): void => {
     this.store.dispatch(UserActions.fetchUsers({ criteria: criteria }));
   };
 

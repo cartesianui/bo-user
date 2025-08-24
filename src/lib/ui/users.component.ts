@@ -1,6 +1,5 @@
 import { Component, Injector, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { ListingControlsComponent } from '@cartesianui/common';
-import { UserSearch } from '../models/forms/user.search';
 import { UserSandbox } from '../user.sandbox';
 import { IUser, User } from '../models';
 
@@ -15,7 +14,7 @@ type UserChildComponent = typeof userChildComponents;
   templateUrl: 'users.component.html',
   providers: []
 })
-export class UsersComponent extends ListingControlsComponent<IUser, UserSearch, UserChildComponent> implements OnInit, AfterViewInit, OnDestroy {
+export class UsersComponent extends ListingControlsComponent<IUser, UserChildComponent> implements OnInit, AfterViewInit, OnDestroy {
   override childComponents: UserChildComponent = userChildComponents;
 
   constructor(
@@ -26,7 +25,7 @@ export class UsersComponent extends ListingControlsComponent<IUser, UserSearch, 
   }
 
   ngOnInit(): void {
-    this.initCriteria(UserSearch).with('roles,permissions');
+    this.initCriteria().with('roles,permissions');
     this.addSubscriptions();
   }
 

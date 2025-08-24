@@ -14,4 +14,10 @@ export class UserPermission extends ParentModel implements IUserPermission {
   constructor(data?: IUserPermission) {
     super(data);
   }
+
+  static override get searchForm() {
+    return {
+      
+    };
+  }
 }

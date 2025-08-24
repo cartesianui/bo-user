@@ -14,4 +14,11 @@ export class UserRole extends ParentModel implements IUserRoles {
   constructor(data?: IUserRoles) {
     super(data);
   }
+
+  static override get searchForm() {
+    return {
+      id: { column: 'id', operator: '=', value: null },
+      name: { column: 'name', operator: '=', value: null }
+    };
+  }
 }
