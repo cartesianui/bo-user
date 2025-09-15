@@ -1,4 +1,4 @@
-import { ParentModel } from '@cartesianui/common';
+import { BaseModel } from '@cartesianui/common';
 import { Role } from '@cartesianui/bo-auth';
 
 export interface IUser {
@@ -13,7 +13,7 @@ export interface IUser {
   logged?: boolean | undefined;
 }
 
-export class User extends ParentModel implements IUser {
+export class User extends BaseModel implements IUser {
   public id: string;
   public name: string;
   public nickname: string;

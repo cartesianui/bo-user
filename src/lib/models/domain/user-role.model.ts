@@ -1,4 +1,4 @@
-import { ParentModel } from '@cartesianui/common';
+import { BaseModel } from '@cartesianui/common';
 
 interface IUserRoles {
   id?: string | undefined;
@@ -6,7 +6,7 @@ interface IUserRoles {
   roleIds: string[];
 }
 
-export class UserRole extends ParentModel implements IUserRoles {
+export class UserRole extends BaseModel implements IUserRoles {
   id: string;
   userId: string;
   roleIds: string[];
