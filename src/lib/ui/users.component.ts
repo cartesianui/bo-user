@@ -11,8 +11,9 @@ const userChildComponents = {
 type UserChildComponent = typeof userChildComponents;
 
 @Component({
-  templateUrl: 'users.component.html',
-  providers: []
+    templateUrl: 'users.component.html',
+    providers: [],
+    standalone: false
 })
 export class UsersComponent extends ListingControlsComponent<IUser, UserChildComponent> implements OnInit, AfterViewInit, OnDestroy {
   override childComponents: UserChildComponent = userChildComponents;

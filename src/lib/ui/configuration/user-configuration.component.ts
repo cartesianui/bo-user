@@ -5,8 +5,9 @@ import { BaseComponent } from '@cartesianui/common';
 // import { Configuration, ConfigurationSandbox } from '@cartesianui/admin-configuration';
 
 @Component({
-  selector: 'user-configuration',
-  templateUrl: './user-configuration.component.html'
+    selector: 'user-configuration',
+    templateUrl: './user-configuration.component.html',
+    standalone: false
 })
 export class UserConfigurationComponent extends BaseComponent implements OnInit, OnDestroy {
   formGroup = new FormGroup({

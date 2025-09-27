@@ -5,8 +5,9 @@ import { UserSandbox } from '../../user.sandbox';
 import { User } from '../../models';
 
 @Component({
-  selector: 'create-user',
-  templateUrl: './create.component.html'
+    selector: 'create-user',
+    templateUrl: './create.component.html',
+    standalone: false
 })
 export class CreateUserComponent extends FormBaseComponent<User> implements OnInit {
   constructor(

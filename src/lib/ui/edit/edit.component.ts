@@ -7,8 +7,9 @@ import { UserSandbox } from '../../user.sandbox';
 import { TabDirective } from 'ngx-bootstrap/tabs';
 
 @Component({
-  selector: 'edit-user',
-  templateUrl: './edit.component.html'
+    selector: 'edit-user',
+    templateUrl: './edit.component.html',
+    standalone: false
 })
 export class EditUserComponent extends BaseComponent implements OnInit, OnDestroy {
 
