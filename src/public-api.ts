@@ -1,4 +1,4 @@
 /*
- * Public API Surface of bo-user
+ * Public API Surface of admin-user
  */
 export * from './lib';

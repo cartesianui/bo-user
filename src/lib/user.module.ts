@@ -13,7 +13,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { CommonModule as CartesianCommonModule } from '@cartesianui/common';
 import { BoLayoutModule } from '@cartesianui/coreui';
-import { AuthModule } from '@cartesianui/bo-auth';
+import { AuthModule } from '@cartesianui/admin-auth';
 
 import * as fromUser from './store/user.reducer';
 import { UserEffects } from './store/user.effect';

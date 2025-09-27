@@ -1,5 +1,5 @@
 import { BaseModel } from '@cartesianui/common';
-import { Role } from '@cartesianui/bo-auth';
+import { Role } from '@cartesianui/admin-auth';
 
 export interface IUser {
   id?: string | undefined;
