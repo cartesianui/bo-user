@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Injector, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BaseComponent } from '@cartesianui/common';
+import { FORM_IMPORTS } from '../../user.imports';
 // import { Configuration, ConfigurationSandbox } from '@cartesianui/admin-configuration';
 
 @Component({
     selector: 'user-configuration',
     templateUrl: './user-configuration.component.html',
-    standalone: false
+    imports: [...FORM_IMPORTS],
+    standalone: true
 })
 export class UserConfigurationComponent extends BaseComponent implements OnInit, OnDestroy {
   formGroup = new FormGroup({

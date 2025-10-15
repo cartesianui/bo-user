@@ -1,15 +1,23 @@
 import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { BaseComponent, DatetimeService } from '@cartesianui/common';
-import { Role, Permission } from '@cartesianui/admin-auth';
+import { Role, Permission, PermissionsWidgetComponent, RolesLookupWidgetComponent, PermissionsLookupWidgetComponent, RolesWidgetComponent } from '@cartesianui/admin-auth';
 import { User, UserPermission, UserRole } from '../../models';
 import { UserSandbox } from '../../user.sandbox';
 import { TabDirective } from 'ngx-bootstrap/tabs';
+import { FORM_IMPORTS } from '../../user.imports';
 
 @Component({
     selector: 'edit-user',
     templateUrl: './edit.component.html',
-    standalone: false
+    imports: [
+      ...FORM_IMPORTS,
+      PermissionsWidgetComponent,
+      PermissionsLookupWidgetComponent,
+      RolesWidgetComponent,
+      RolesLookupWidgetComponent, 
+    ],
+    standalone: true
 })
 export class EditUserComponent extends BaseComponent implements OnInit, OnDestroy {
 

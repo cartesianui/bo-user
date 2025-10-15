@@ -3,11 +3,13 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { FormBaseComponent } from '@cartesianui/common';
 import { UserSandbox } from '../../user.sandbox';
 import { User } from '../../models';
+import { FORM_IMPORTS } from '../../user.imports';
 
 @Component({
     selector: 'create-user',
     templateUrl: './create.component.html',
-    standalone: false
+    imports: [...FORM_IMPORTS],
+    standalone: true
 })
 export class CreateUserComponent extends FormBaseComponent<User> implements OnInit {
   constructor(

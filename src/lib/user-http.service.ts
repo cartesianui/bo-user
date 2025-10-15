@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpService, POST, GET, Body, Criteria, DefaultHeaders, RequestCriteria, Path, DELETE, PATCH, PUT } from '@cartesianui/core';
+import { HttpService, POST, GET, Body, Criteria, DefaultHeaders, RequestCriteriaOuput, Path, DELETE, PATCH, PUT } from '@cartesianui/core';
 import { User, UserPermission, UserRole } from './models';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class UserHttpService extends HttpService {
    * @param SearchForm form to filter api response
    */
   @GET('/users')
-  public users(@Criteria criteria: RequestCriteria): Observable<any> {
+  public users(@Criteria criteria: RequestCriteriaOuput): Observable<any> {
     return null;
   }
 
