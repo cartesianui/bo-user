@@ -10,8 +10,8 @@ import { BaseComponent } from '@cartesianui/common';
     standalone: true
 })
 export class EntryComponent extends BaseComponent {
-  constructor(injector: Injector) {
-    super(injector);
+  constructor() {
+    super();
     console.log('📦 User feature initialized');
   }
 }

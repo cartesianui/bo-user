@@ -7,7 +7,7 @@ import { BaseComponent } from '@cartesianui/common';
     standalone: false
 })
 export class UserComponent extends BaseComponent {
-  constructor(injector: Injector) {
-    super(injector);
+  constructor() {
+    super();
   }
 }

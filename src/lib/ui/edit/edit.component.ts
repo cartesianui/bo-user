@@ -1,4 +1,4 @@
-import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { BaseComponent, DatetimeService } from '@cartesianui/common';
 import { Role, Permission, PermissionsWidgetComponent, RolesLookupWidgetComponent, PermissionsLookupWidgetComponent, RolesWidgetComponent } from '@cartesianui/admin-auth';
@@ -20,6 +20,8 @@ import { FORM_IMPORTS } from '../../user.imports';
     standalone: true
 })
 export class EditUserComponent extends BaseComponent implements OnInit, OnDestroy {
+
+  protected sb = inject(UserSandbox);
 
   user: User;
 
@@ -43,13 +45,6 @@ export class EditUserComponent extends BaseComponent implements OnInit, OnDestro
 
   activeTab: string = "General";
 
-  constructor(
-    protected injector: Injector,
-    protected sb: UserSandbox
-  ) {
-    super(injector);
-  }
-
   ngOnInit(): void {
     this.addSubscriptions();
   }
@@ -57,8 +52,8 @@ export class EditUserComponent extends BaseComponent implements OnInit, OnDestro
   addSubscriptions() {
     this.subscriptions.push(
       this.sb.selectedUser$.subscribe((user: User) => {
-        this.user = user;
-        this.user.birth = DatetimeService.toJSDate(this.user.birth);
+        if (!user) return;
+        this.user = { ...user, birth: DatetimeService.toJSDate(user.birth) } as User;
         this.formGroup.patchValue(this.user);
       })
     );

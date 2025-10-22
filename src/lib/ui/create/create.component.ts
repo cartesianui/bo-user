@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, inject, Injector, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FormBaseComponent } from '@cartesianui/common';
 import { UserSandbox } from '../../user.sandbox';
@@ -12,11 +12,11 @@ import { FORM_IMPORTS } from '../../user.imports';
     standalone: true
 })
 export class CreateUserComponent extends FormBaseComponent<User> implements OnInit {
-  constructor(
-    injector: Injector,
-    protected sb: UserSandbox
-  ) {
-    super(injector);
+
+  protected sb = inject(UserSandbox);
+
+  constructor() {
+    super();
     this.formGroup = new FormGroup({
       name: new FormControl('', []),
       email: new FormControl('', []),

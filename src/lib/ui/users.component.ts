@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, Injector, OnInit, AfterViewInit, OnDestroy, inject } from '@angular/core';
 import { ListingControlsComponent } from '@cartesianui/common';
 import { UserSandbox } from '../user.sandbox';
 import { IUser, User } from '../models';
@@ -25,12 +25,7 @@ type UserChildComponent = typeof userChildComponents;
 export class UsersComponent extends ListingControlsComponent<IUser, UserChildComponent> implements OnInit, AfterViewInit, OnDestroy {
   override childComponents: UserChildComponent = userChildComponents;
 
-  constructor(
-    injector: Injector,
-    public sb: UserSandbox
-  ) {
-    super(injector);
-  }
+  protected sb = inject(UserSandbox);
 
   ngOnInit(): void {
     this.initCriteria().with('roles,permissions');
@@ -49,7 +44,7 @@ export class UsersComponent extends ListingControlsComponent<IUser, UserChildCom
 
   protected list(): void {
     this.startLoading();
-    this.sb.fetchUsers(this.criteria.toHttpParams());
+    this.sb.fetchUsers(this.criteria.httpParams());
   }
 
   edit(user: User): void {
@@ -64,7 +59,7 @@ export class UsersComponent extends ListingControlsComponent<IUser, UserChildCom
     } else {
       this.criteria.where('name', 'like', '');
     } // TODO: Remove where
-    this.list();
+    // this.list();
   }
 
   onDelete() {

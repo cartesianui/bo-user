@@ -30,13 +30,6 @@ export class UserConfigurationComponent extends BaseComponent implements OnInit,
   failed: boolean;
   // configuration: Configuration;
 
-  constructor(
-    injector: Injector,
-    // protected _sandbox: ConfigurationSandbox
-  ) {
-    super(injector);
-  }
-
   ngOnInit(): void {
     this.addSubscriptions();
     this.fetchConfiguration();
