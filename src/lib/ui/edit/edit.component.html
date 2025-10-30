@@ -119,7 +119,7 @@
     </tab>
     <tab heading="Roles" (selectTab)="onSelectTab($event)">
       <div class="row mt-2">
-        <roles-lookup [(selected)]="rolesToAttach" [ignoreOptions]="user.roles?.data" />
+        <roles-lookup [(value)]="rolesToAttach" [ignoreOptions]="user.roles?.data" />
       </div>
 
       <div class="row mt-2">
