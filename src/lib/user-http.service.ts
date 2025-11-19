@@ -14,8 +14,18 @@ export class UserHttpService extends HttpService {
    *
    * @param SearchForm form to filter api response
    */
-  @GET('/users')
+  @GET('/cartesian/users')
   public users(@Criteria criteria: RequestCriteriaOuput): Observable<any> {
+    return null;
+  }
+
+  @GET('/cartesian/users?roles[]=vendor')
+  public vendors(@Criteria criteria: RequestCriteriaOuput): Observable<any> {
+    return null;
+  }
+
+  @GET('/cartesian/users?roles[]=customer')
+  public customers(@Criteria criteria: RequestCriteriaOuput): Observable<any> {
     return null;
   }
 

@@ -26,7 +26,7 @@ export class EditUserComponent extends BaseComponent implements OnInit, OnDestro
   user: User;
 
   rolesToRevoke: Role[] = [];
-  rolesToAttach: Role[] = [];
+  rolesToAttachControl = new FormControl<Role['id'][]>([], { nonNullable: true });
 
   permissionsToAttach: Permission[] = [];
   permissionsToRevoke: Permission[] = [];
@@ -90,13 +90,13 @@ export class EditUserComponent extends BaseComponent implements OnInit, OnDestro
   }
 
   onAttach() {
-    const roleIds = this.rolesToAttach.map((role) => role.id);
+    const roleIds = this.rolesToAttachControl.value || [];
     const form = new UserRole({
       userId: this.user.id,
       roleIds
     });
     this.sb.attachRoles(this.user.id, form);
-    this.rolesToAttach = [];
+    this.rolesToAttachControl.reset([], { emitEvent: false });
   }
 
   onRevokePermissions() {
