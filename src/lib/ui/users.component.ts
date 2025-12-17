@@ -1,8 +1,10 @@
-import { Component, Injector, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, Injector, OnInit, AfterViewInit, OnDestroy, inject } from '@angular/core';
 import { ListingControlsComponent } from '@cartesianui/common';
-import { UserSearch } from '../models/forms/user.search';
 import { UserSandbox } from '../user.sandbox';
 import { IUser, User } from '../models';
+import { LISTING_IMPORTS } from '../user.imports';
+import { CreateUserComponent } from './create/create.component';
+import { EditUserComponent } from './edit/edit.component';
 
 const userChildComponents = {
   createUser: { id: 'createUser', title: 'Create User' },
@@ -12,21 +14,21 @@ const userChildComponents = {
 type UserChildComponent = typeof userChildComponents;
 
 @Component({
-  templateUrl: 'users.component.html',
-  providers: []
+    templateUrl: 'users.component.html',
+    imports: [
+      ...LISTING_IMPORTS,
+      CreateUserComponent,
+      EditUserComponent
+    ],
+    standalone: true
 })
-export class UsersComponent extends ListingControlsComponent<IUser, UserSearch, UserChildComponent> implements OnInit, AfterViewInit, OnDestroy {
+export class UsersComponent extends ListingControlsComponent<IUser, UserChildComponent> implements OnInit, AfterViewInit, OnDestroy {
   override childComponents: UserChildComponent = userChildComponents;
 
-  constructor(
-    injector: Injector,
-    public sb: UserSandbox
-  ) {
-    super(injector);
-  }
+  protected sb = inject(UserSandbox);
 
   ngOnInit(): void {
-    this.initCriteria(UserSearch).with('roles,permissions');
+    this.initCriteria().with('roles,permissions');
     this.addSubscriptions();
   }
 
@@ -42,12 +44,12 @@ export class UsersComponent extends ListingControlsComponent<IUser, UserSearch, 
 
   protected list(): void {
     this.startLoading();
-    this.sb.fetchUsers(this.criteria);
+    this.sb.fetchUsers(this.criteria.httpParams());
   }
 
   edit(user: User): void {
     this.sb.selectUser(user);
-    this.showChildComponent(this.childComponents.editUser);
+    this.showChildComponent(this.childComponents.editUser, 'editUser');
   }
 
   search() {
@@ -57,17 +59,12 @@ export class UsersComponent extends ListingControlsComponent<IUser, UserSearch, 
     } else {
       this.criteria.where('name', 'like', '');
     } // TODO: Remove where
-    this.list();
+    // this.list();
   }
 
   onDelete() {
     if (this.selected.length > 0) {
       // do deletion stuff
     }
-  }
-
-  onCreated() {
-    this.list();
-    this.hideChildComponent(false);
   }
 }

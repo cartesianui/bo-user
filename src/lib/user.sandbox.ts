@@ -1,26 +1,22 @@
-import { Injectable, Injector } from '@angular/core';
+import { inject, Injectable, Injector } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { RequestCriteria } from '@cartesianui/core';
+import { RequestCriteriaOuput } from '@cartesianui/core';
 import { Sandbox } from '@cartesianui/common';
-import { User, UserSearch, UserRole, UserPermission } from './models';
+import { User, UserRole, UserPermission } from './models';
 import { UserActions } from './store/user.actions';
 import * as fromUser from './store/user.reducer';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class UserSandbox extends Sandbox {
+  protected store = inject(Store);
+
   public users$ = this.store.pipe(select(fromUser.entities));
   public usersMeta$ = this.store.pipe(select(fromUser.meta));
   public selectedUser$ = this.store.pipe(select(fromUser.selected));
-  public creationState$ = this.store.pipe(select(fromUser.creation));
+  public createState$ = this.store.pipe(select(fromUser.create));
 
-  constructor(
-    protected store: Store,
-    protected override injector: Injector
-  ) {
-    super(injector);
-  }
 
-  fetchUsers = (criteria: RequestCriteria<UserSearch>): void => {
+  fetchUsers = (criteria: RequestCriteriaOuput): void => {
     this.store.dispatch(UserActions.fetchUsers({ criteria: criteria }));
   };
 
@@ -44,12 +40,12 @@ export class UserSandbox extends Sandbox {
     this.store.dispatch(UserActions.deleteUser({ id }));
   };
 
-  public attachRoles(form: UserRole): void {
-    this.store.dispatch(UserActions.attachRoles({ form }));
+  public attachRoles(id: string, form: UserRole): void {
+    this.store.dispatch(UserActions.attachRoles({ id, form }));
   }
 
-  public detachRoles(form: UserRole): void {
-    this.store.dispatch(UserActions.detachRoles({ form }));
+  public detachRoles(id: string, form: UserRole): void {
+    this.store.dispatch(UserActions.detachRoles({ id, form }));
   }
 
   public attachPermissions(id: string, form: UserPermission): void {

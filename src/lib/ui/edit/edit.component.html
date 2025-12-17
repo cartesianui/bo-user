@@ -13,8 +13,8 @@
   (attach)="onAttach()"
   (revoke)="onRevoke()"
   [disabled]="{
-    attach: rolesToAttach.length < 1,
-    revoke: rolesToRevoke.length < 1
+    attach: !rolesToAttachControl.value || rolesToAttachControl.value.length < 1,
+    revoke: rolesToRevoke?.length < 1
   }"
   [hide]="{
     attach: activeTab !== 'Roles',
@@ -35,7 +35,7 @@
   }"
 />
 
-<div class="animated fadeIn">
+<div class="main-content">
   <tabset>
     <tab heading="General" (selectTab)="onSelectTab($event)">
       <div class="row">
@@ -119,7 +119,7 @@
     </tab>
     <tab heading="Roles" (selectTab)="onSelectTab($event)">
       <div class="row mt-2">
-        <roles-lookup [(selected)]="rolesToAttach" [ignoreOptions]="user.roles?.data" />
+        <roles-lookup [formControl]="rolesToAttachControl" [ignoreOptions]="user.roles?.data" />
       </div>
 
       <div class="row mt-2">

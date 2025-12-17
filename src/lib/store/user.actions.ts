@@ -1,8 +1,8 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
-import { IError, RequestCriteria } from '@cartesianui/core';
+import { IError, RequestCriteriaOuput } from '@cartesianui/core';
 import { ResponseMeta } from '@cartesianui/common';
-import { User, UserPermission, UserRole, UserSearch } from '../models';
+import { User, UserPermission, UserRole } from '../models';
 
 
 export const UserActions = createActionGroup({
@@ -26,10 +26,10 @@ export const UserActions = createActionGroup({
     'Update User Credentials': props<{ user: { id: string; changes: { currentPassword: string; newPassword: string } } }>(),
     'Update Success': props<{ user: User }>(),
     'Update Failure': props<{ errors: IError; message: string }>(),
-    'Fetch Users': props<{ criteria: RequestCriteria<UserSearch> }>(),
+    'Fetch Users': props<{ criteria: RequestCriteriaOuput }>(),
     'Sync Roles': props<{ form: UserRole }>(),
-    'Attach Roles': props<{ form: UserRole }>(),
-    'Detach Roles': props<{ form: UserRole }>(),
+    'Attach Roles': props<{ id: string, form: UserRole }>(),
+    'Detach Roles': props<{ id: string, form: UserRole }>(),
     'Attach Permissions': props<{ id: string, form: UserPermission }>(),
     'Detach Permissions': props<{ id: string, form: UserPermission }>()
   }

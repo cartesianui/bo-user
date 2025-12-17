@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpService, POST, GET, Body, Criteria, DefaultHeaders, RequestCriteria, Path, DELETE, PATCH } from '@cartesianui/core';
-import { User, UserSearch, UserPermission, UserRole } from './models';
+import { HttpService, POST, GET, Body, Criteria, DefaultHeaders, RequestCriteriaOuput, Path, DELETE, PATCH, PUT } from '@cartesianui/core';
+import { User, UserPermission, UserRole } from './models';
 
 @Injectable()
 @DefaultHeaders({
@@ -14,8 +14,18 @@ export class UserHttpService extends HttpService {
    *
    * @param SearchForm form to filter api response
    */
-  @GET('/users')
-  public users(@Criteria criteria: RequestCriteria<UserSearch>): Observable<any> {
+  @GET('/cartesian/users')
+  public users(@Criteria criteria: RequestCriteriaOuput): Observable<any> {
+    return null;
+  }
+
+  @GET('/cartesian/users?roles[]=vendor')
+  public vendors(@Criteria criteria: RequestCriteriaOuput): Observable<any> {
+    return null;
+  }
+
+  @GET('/cartesian/users?roles[]=customer')
+  public customers(@Criteria criteria: RequestCriteriaOuput): Observable<any> {
     return null;
   }
 
@@ -49,28 +59,28 @@ export class UserHttpService extends HttpService {
     return null;
   }
 
-  @POST('/roles/assign?include=roles,permissions')
-  public assignRole(@Body body: UserRole): Observable<any> {
+  @PATCH('/users/{id}/roles?include=roles,permissions')
+  public assignRole(@Path('id') id: string, @Body body: UserRole): Observable<any> {
     return null;
   }
 
-  @POST('/roles/revoke?include=roles,permissions')
-  public revokeRole(@Body body: UserRole): Observable<any> {
+  @PUT('/users/{id}/roles?include=roles,permissions')
+  public syncRole(@Path('id') id: string, @Body body: UserRole): Observable<any> {
     return null;
   }
 
-  @PATCH('/users/{id}/permissions?include=roles,permissions')
+  @DELETE('/users/{id}/roles?include=roles,permissions')
+  public revokeRole(@Path('id') id: string, @Body body: UserRole): Observable<any> {
+    return null;
+  }
+
+  @POST('/users/{id}/permissions?include=roles,permissions')
   public attachPermissions(@Path('id') id: string, @Body body: UserPermission): Observable<any> {
     return null;
   }
 
   @DELETE('/users/{id}/permissions?include=roles,permissions')
   public revokePermissions(@Path('id') id: string, @Body body: UserPermission): Observable<any> {
-    return null;
-  }
-
-  @POST('/roles/sync')
-  public syncRole(@Body body: UserPermission): Observable<any> {
     return null;
   }
 }

@@ -1,19 +1,22 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, inject, Injector, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FormBaseComponent } from '@cartesianui/common';
 import { UserSandbox } from '../../user.sandbox';
 import { User } from '../../models';
+import { FORM_IMPORTS } from '../../user.imports';
 
 @Component({
-  selector: 'create-user',
-  templateUrl: './create.component.html'
+    selector: 'create-user',
+    templateUrl: './create.component.html',
+    imports: [...FORM_IMPORTS],
+    standalone: true
 })
 export class CreateUserComponent extends FormBaseComponent<User> implements OnInit {
-  constructor(
-    injector: Injector,
-    protected sb: UserSandbox
-  ) {
-    super(injector);
+
+  protected sb = inject(UserSandbox);
+
+  constructor() {
+    super();
     this.formGroup = new FormGroup({
       name: new FormControl('', []),
       email: new FormControl('', []),
@@ -28,8 +31,8 @@ export class CreateUserComponent extends FormBaseComponent<User> implements OnIn
 
   addSubscriptions() {
     this.subscriptions.push(
-      this.sb.creationState$.subscribe(({ compeleted }) => {
-        if (compeleted) {
+      this.sb.createState$.subscribe(({ completed }) => {
+        if (completed) {
           this.created.emit(true);
         }
       })

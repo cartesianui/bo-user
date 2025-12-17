@@ -1,5 +1,5 @@
-import { ParentModel } from '@cartesianui/common';
-import { Role } from '@cartesianui/bo-auth';
+import { BaseModel } from '@cartesianui/common';
+import { Role } from '@cartesianui/admin-auth';
 
 export interface IUser {
   id?: string | undefined;
@@ -13,7 +13,7 @@ export interface IUser {
   logged?: boolean | undefined;
 }
 
-export class User extends ParentModel implements IUser {
+export class User extends BaseModel implements IUser {
   public id: string;
   public name: string;
   public nickname: string;
@@ -27,5 +27,12 @@ export class User extends ParentModel implements IUser {
 
   constructor(data?: IUser) {
     super(data);
+  }
+
+  static override get searchForm() {
+    return {
+      name:{ column: 'name', operator: '=', value: null },
+      email: { column: 'email', operator: '=', value: null }
+    };
   }
 }

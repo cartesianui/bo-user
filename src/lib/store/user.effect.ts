@@ -84,10 +84,10 @@ export class UserEffects {
   attachRole$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UserActions.attachRoles),
-      map(({ form }) => form),
-      switchMap((form) =>
-        this.httpService.assignRole(form).pipe(
-          switchMap(({ data }: ICartesianResponse) => of(UserActions.updateUser({ user: data }), UserActions.updateSuccess({ user: data }))),
+      map(({ id, form }) => ({ id, form })),
+      switchMap(({ id, form }) =>
+        this.httpService.assignRole(id, form).pipe(
+          switchMap(({ data }: ICartesianResponse) => of(UserActions.updateSuccess({ user: data }))),
           catchError(({ errors, message }: ICartesianResponse) => of(UserActions.updateFailure({ errors, message })))
         )
       )
@@ -97,10 +97,10 @@ export class UserEffects {
   detachRole$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UserActions.detachRoles),
-      map(({ form }) => form),
-      switchMap((form) =>
-        this.httpService.revokeRole(form).pipe(
-          switchMap(({ data }: ICartesianResponse) => of(UserActions.updateUser({ user: data }), UserActions.updateSuccess({ user: data }))),
+      map(({ id, form }) => ({ id, form })),
+      switchMap(({ id, form }) =>
+        this.httpService.revokeRole(id, form).pipe(
+          switchMap(({ data }: ICartesianResponse) => of(UserActions.updateSuccess({ user: data }))),
           catchError(({ errors, message }: ICartesianResponse) => of(UserActions.updateFailure({ errors, message })))
         )
       )
@@ -113,7 +113,7 @@ export class UserEffects {
       map((payload) => payload),
       switchMap(({ id, form }) =>
         this.httpService.attachPermissions(id, form).pipe(
-          switchMap(({ data }: ICartesianResponse) => of(UserActions.updateUser({ user: data }), UserActions.updateSuccess({ user: data }))),
+          switchMap(({ data }: ICartesianResponse) => of(UserActions.updateSuccess({ user: data }))),
           catchError(({ errors, message }: ICartesianResponse) => of(UserActions.updateFailure({ errors, message })))
         )
       )
@@ -126,7 +126,7 @@ export class UserEffects {
       map((payload) => payload),
       switchMap(({ id, form }) =>
         this.httpService.revokePermissions(id, form).pipe(
-          switchMap(({ data }: ICartesianResponse) => of(UserActions.updateUser({ user: data }), UserActions.updateSuccess({ user: data }))),
+          switchMap(({ data }: ICartesianResponse) => of(UserActions.updateSuccess({ user: data }))),
           catchError(({ errors, message }: ICartesianResponse) => of(UserActions.updateFailure({ errors, message })))
         )
       )

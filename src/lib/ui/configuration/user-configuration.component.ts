@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Injector, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BaseComponent } from '@cartesianui/common';
-// import { Configuration, ConfigurationSandbox } from '@cartesianui/bo-configuration';
+import { FORM_IMPORTS } from '../../user.imports';
+// import { Configuration, ConfigurationSandbox } from '@cartesianui/admin-configuration';
 
 @Component({
-  selector: 'user-configuration',
-  templateUrl: './user-configuration.component.html'
+    selector: 'user-configuration',
+    templateUrl: './user-configuration.component.html',
+    imports: [...FORM_IMPORTS],
+    standalone: true
 })
 export class UserConfigurationComponent extends BaseComponent implements OnInit, OnDestroy {
   formGroup = new FormGroup({
@@ -26,13 +29,6 @@ export class UserConfigurationComponent extends BaseComponent implements OnInit,
   loaded: boolean;
   failed: boolean;
   // configuration: Configuration;
-
-  constructor(
-    injector: Injector,
-    // protected _sandbox: ConfigurationSandbox
-  ) {
-    super(injector);
-  }
 
   ngOnInit(): void {
     this.addSubscriptions();

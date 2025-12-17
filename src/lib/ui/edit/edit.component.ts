@@ -1,21 +1,32 @@
-import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { BaseComponent, DatetimeService } from '@cartesianui/common';
-import { Role, Permission } from '@cartesianui/bo-auth';
+import { Role, Permission, PermissionsWidgetComponent, RolesLookupWidgetComponent, PermissionsLookupWidgetComponent, RolesWidgetComponent } from '@cartesianui/admin-auth';
 import { User, UserPermission, UserRole } from '../../models';
 import { UserSandbox } from '../../user.sandbox';
 import { TabDirective } from 'ngx-bootstrap/tabs';
+import { FORM_IMPORTS } from '../../user.imports';
 
 @Component({
-  selector: 'edit-user',
-  templateUrl: './edit.component.html'
+    selector: 'edit-user',
+    templateUrl: './edit.component.html',
+    imports: [
+      ...FORM_IMPORTS,
+      PermissionsWidgetComponent,
+      PermissionsLookupWidgetComponent,
+      RolesWidgetComponent,
+      RolesLookupWidgetComponent, 
+    ],
+    standalone: true
 })
 export class EditUserComponent extends BaseComponent implements OnInit, OnDestroy {
+
+  protected sb = inject(UserSandbox);
 
   user: User;
 
   rolesToRevoke: Role[] = [];
-  rolesToAttach: Role[] = [];
+  rolesToAttachControl = new FormControl<Role['id'][]>([], { nonNullable: true });
 
   permissionsToAttach: Permission[] = [];
   permissionsToRevoke: Permission[] = [];
@@ -34,13 +45,6 @@ export class EditUserComponent extends BaseComponent implements OnInit, OnDestro
 
   activeTab: string = "General";
 
-  constructor(
-    protected injector: Injector,
-    protected sb: UserSandbox
-  ) {
-    super(injector);
-  }
-
   ngOnInit(): void {
     this.addSubscriptions();
   }
@@ -48,8 +52,8 @@ export class EditUserComponent extends BaseComponent implements OnInit, OnDestro
   addSubscriptions() {
     this.subscriptions.push(
       this.sb.selectedUser$.subscribe((user: User) => {
-        this.user = user;
-        this.user.birth = DatetimeService.toJSDate(this.user.birth);
+        if (!user) return;
+        this.user = { ...user, birth: DatetimeService.toJSDate(user.birth) } as User;
         this.formGroup.patchValue(this.user);
       })
     );
@@ -76,40 +80,40 @@ export class EditUserComponent extends BaseComponent implements OnInit, OnDestro
   }
 
   onRevoke() {
-    const rolesIds = this.rolesToRevoke.map((role) => role.id);
+    const roleIds = this.rolesToRevoke.map((role) => role.id);
     const form = new UserRole({
       userId: this.user.id,
-      rolesIds
+      roleIds
     });
-    this.sb.detachRoles(form);
+    this.sb.detachRoles(this.user.id, form);
     this.rolesToRevoke = [];
   }
 
   onAttach() {
-    const rolesIds = this.rolesToAttach.map((role) => role.id);
+    const roleIds = this.rolesToAttachControl.value || [];
     const form = new UserRole({
       userId: this.user.id,
-      rolesIds
+      roleIds
     });
-    this.sb.attachRoles(form);
-    this.rolesToAttach = [];
+    this.sb.attachRoles(this.user.id, form);
+    this.rolesToAttachControl.reset([], { emitEvent: false });
   }
 
   onRevokePermissions() {
-    const permissionsIds = this.permissionsToRevoke.map((permission) => permission.id);
+    const permissionIds = this.permissionsToRevoke.map((permission) => permission.id);
     const form = new UserPermission({
       userId: this.user.id,
-      permissionsIds
+      permissionIds
     });
     this.sb.detachPermissions(this.user.id, form);
     this.permissionsToRevoke = [];
   }
 
   onAttachPermissions() {
-    const permissionsIds = this.permissionsToAttach.map((permission) => permission.id);
+    const permissionIds = this.permissionsToAttach.map((permission) => permission.id);
     const form = new UserPermission({
       userId: this.user.id,
-      permissionsIds
+      permissionIds
     });
     this.sb.attachPermissions(this.user.id, form);
     this.permissionsToAttach = [];
