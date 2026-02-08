@@ -1,23 +1,23 @@
-# Back-Office User Module
+# System User Module
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.0.
 
 ## Code scaffolding
 
-Run `ng generate component component-name --project admin-user` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project admin-user`.
-> Note: Don't forget to add `--project admin-user` or else it will be added to the default project in your `angular.json` file. 
+Run `ng generate component component-name --project system-user` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project system-user`.
+> Note: Don't forget to add `--project system-user` or else it will be added to the default project in your `angular.json` file.
 
 ## Build
 
-Run `ng build admin-user` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `ng build system-user` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ## Publishing
 
-After building your library with `ng build admin-user`, go to the dist folder `cd dist/admin-user` and run `npm publish`.
+After building your library with `ng build system-user`, go to the dist folder `cd dist/system-user` and run `npm publish`.
 
 ## Running unit tests
 
-Run `ng test admin-user` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `ng test system-user` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ## Linting
 
@@ -28,7 +28,7 @@ Run `ng test admin-user` to execute the unit tests via [Karma](https://karma-run
 
 2. Run lint command as
 
-`ng lint --project=admin-user`
+`ng lint --project=system-user`
 
 ## Further help
 

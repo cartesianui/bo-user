@@ -3,7 +3,7 @@ import { Injector, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BaseComponent } from '@cartesianui/common';
 import { FORM_IMPORTS } from '../../user.imports';
-// import { Configuration, ConfigurationSandbox } from '@cartesianui/admin-configuration';
+// import { Configuration, ConfigurationSandbox } from '@cartesianui/system-configuration';
 
 @Component({
     selector: 'user-configuration',

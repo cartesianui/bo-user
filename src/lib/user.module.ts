@@ -10,7 +10,7 @@ import { NgModule } from '@angular/core';
 // import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 // import { CommonModule as CartesianCommonModule } from '@cartesianui/common';
 // import { BoLayoutModule } from '@cartesianui/coreui';
-// import { AuthModule } from '@cartesianui/admin-auth';
+// import { AuthModule } from '@cartesianui/system-auth';
 
 
 @NgModule({
