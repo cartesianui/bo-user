@@ -1,7 +1,7 @@
 import { Component, inject, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { BaseComponent, DatetimeService } from '@cartesianui/common';
-import { Role, Permission, PermissionsWidgetComponent, RolesLookupWidgetComponent, PermissionsLookupWidgetComponent, RolesWidgetComponent } from '@cartesianui/admin-auth';
+import { Role, Permission, PermissionsWidgetComponent, RolesLookupWidgetComponent, PermissionsLookupWidgetComponent, RolesWidgetComponent } from '@cartesianui/system-auth';
 import { User, UserPermission, UserRole } from '../../models';
 import { UserSandbox } from '../../user.sandbox';
 import { TabDirective } from 'ngx-bootstrap/tabs';

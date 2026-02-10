@@ -1,4 +1,4 @@
 /*
- * Public API Surface of admin-user
+ * Public API Surface of system-user
  */
 export * from './lib';
