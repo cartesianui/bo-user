@@ -1,4 +1,4 @@
-import { BaseModel } from '@cartesianui/common';
+import { BaseModel, EntityMeta } from '@cartesianui/common';
 import { Role } from '@cartesianui/system-auth';
 
 export interface IUser {
@@ -13,6 +13,12 @@ export interface IUser {
   logged?: boolean | undefined;
 }
 
+@EntityMeta({
+  search: {
+    name:{ column: 'name', operator: '=', value: null },
+    email: { column: 'email', operator: '=', value: null }
+  }
+})
 export class User extends BaseModel implements IUser {
   public id: string;
   public name: string;
@@ -29,10 +35,5 @@ export class User extends BaseModel implements IUser {
     super(data);
   }
 
-  static override get searchForm() {
-    return {
-      name:{ column: 'name', operator: '=', value: null },
-      email: { column: 'email', operator: '=', value: null }
-    };
-  }
+
 }

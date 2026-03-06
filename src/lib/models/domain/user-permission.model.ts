@@ -1,4 +1,4 @@
-import { BaseModel } from '@cartesianui/common';
+import { BaseModel, EntityMeta } from '@cartesianui/common';
 
 interface IUserPermission {
   id?: string | undefined;
@@ -6,6 +6,11 @@ interface IUserPermission {
   permissionIds: string[];
 }
 
+@EntityMeta({
+  search: {
+
+  }
+})
 export class UserPermission extends BaseModel implements IUserPermission {
   id: string;
   userId: string;
@@ -15,9 +20,4 @@ export class UserPermission extends BaseModel implements IUserPermission {
     super(data);
   }
 
-  static override get searchForm() {
-    return {
-      
-    };
-  }
 }
