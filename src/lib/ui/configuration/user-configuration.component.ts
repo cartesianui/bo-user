@@ -32,7 +32,7 @@ export class UserConfigurationComponent extends BaseComponent implements OnInit,
 
   ngOnInit(): void {
     this.addSubscriptions();
-    this.fetchConfiguration();
+    this.getConfiguration();
   }
 
   update() {
@@ -58,8 +58,8 @@ export class UserConfigurationComponent extends BaseComponent implements OnInit,
     // );
   }
 
-  fetchConfiguration() {
-    // this._sandbox.fetchConfigurationByType('user');
+  getConfiguration() {
+    // this._sandbox.getConfigurationByType('user');
   }
 
   getFormClasses(controlName: string): string {

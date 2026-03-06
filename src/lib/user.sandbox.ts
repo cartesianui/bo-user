@@ -16,8 +16,8 @@ export class UserSandbox extends Sandbox {
   public createState$ = this.store.pipe(select(fromUser.create));
 
 
-  fetchUsers = (criteria: RequestCriteriaOuput): void => {
-    this.store.dispatch(UserActions.fetchUsers({ criteria: criteria }));
+  getUsers = (criteria: RequestCriteriaOuput): void => {
+    this.store.dispatch(UserActions.getUsers({ criteria: criteria }));
   };
 
   selectUser = (user: User): void => {

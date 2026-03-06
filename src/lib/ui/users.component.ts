@@ -44,7 +44,7 @@ export class UsersComponent extends ListingControlsComponent<IUser, UserChildCom
 
   protected list(): void {
     this.startLoading();
-    this.sb.fetchUsers(this.criteria.httpParams());
+    this.sb.getUsers(this.criteria.httpParams());
   }
 
   edit(user: User): void {

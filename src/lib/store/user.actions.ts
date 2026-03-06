@@ -26,7 +26,7 @@ export const UserActions = createActionGroup({
     'Update User Credentials': props<{ user: { id: string; changes: { currentPassword: string; newPassword: string } } }>(),
     'Update Success': props<{ user: User }>(),
     'Update Failure': props<{ errors: IError; message: string }>(),
-    'Fetch Users': props<{ criteria: RequestCriteriaOuput }>(),
+    'Get Users': props<{ criteria: RequestCriteriaOuput }>(),
     'Sync Roles': props<{ form: UserRole }>(),
     'Attach Roles': props<{ id: string, form: UserRole }>(),
     'Detach Roles': props<{ id: string, form: UserRole }>(),

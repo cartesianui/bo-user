@@ -14,9 +14,9 @@ export class UserEffects {
     private httpService: UserHttpService
   ) {}
 
-  fetchUsers$ = createEffect(() =>
+  getUsers$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(UserActions.fetchUsers),
+      ofType(UserActions.getUsers),
       map(({ criteria }) => criteria),
       switchMap((criteria) => {
         return this.httpService.users(criteria).pipe(
