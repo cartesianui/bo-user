@@ -1,4 +1,5 @@
 import { BaseModel, EntityMeta } from '@cartesianui/common';
+import { Validators } from '@angular/forms';
 import { Role } from '@cartesianui/system-auth';
 
 export interface IUser {
@@ -14,6 +15,18 @@ export interface IUser {
 }
 
 @EntityMeta({
+  list: [
+    { key: 'name', label: 'Name', opt: { link: true } },
+    { key: 'email', label: 'Email', opt: {} },
+  ],
+  form: [
+    { key: 'name', label: 'Name', opt: { validators: [Validators.required, Validators.maxLength(255)] } },
+    { key: 'email', label: 'Email', opt: { validators: [Validators.required, Validators.email] } },
+    { key: 'gender', label: 'Gender', opt: {} },
+    { key: 'birth', label: 'Birth Date', opt: {} },
+    { key: 'password', label: 'Password', opt: { validators: [Validators.minLength(8)] } },
+    { key: 'confirmPassword', label: 'Confirm Password', opt: {} },
+  ],
   search: {
     name:{ column: 'name', operator: '=', value: null },
     email: { column: 'email', operator: '=', value: null }

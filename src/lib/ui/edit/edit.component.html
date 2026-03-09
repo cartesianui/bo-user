@@ -119,7 +119,7 @@
     </tab>
     <tab heading="Roles" (selectTab)="onSelectTab($event)">
       <div class="row mt-2">
-        <roles-lookup [formControl]="rolesToAttachControl" [ignoreOptions]="user.roles?.data" />
+        <roles-lookup [formControl]="rolesToAttachControl" [ignoreOptions]="user()?.roles?.data" />
       </div>
 
       <div class="row mt-2">
@@ -129,7 +129,7 @@
               <strong>User Roles</strong>
             </div>
             <div class="card-body">
-              <roles-list [rows]="user?.roles?.data" [(selected)]="rolesToRevoke" />
+              <roles-list [rows]="user()?.roles?.data" [(selected)]="rolesToRevoke" />
             </div>
           </div>
         </div>
@@ -137,7 +137,7 @@
     </tab>
     <tab heading="Permissions" (selectTab)="onSelectTab($event)">
       <div class="row mt-2">
-        <permissions-lookup [(selected)]="permissionsToAttach" [ignoreOptions]="user.permissions?.data" />
+        <permissions-lookup [(selected)]="permissionsToAttach" [ignoreOptions]="user()?.permissions?.data" />
       </div>
 
       <div class="row mt-2">
@@ -147,7 +147,7 @@
               <strong>User Permissions</strong>
             </div>
             <div class="card-body">
-              <permissions-list [rows]="user?.permissions?.data" [(selected)]="permissionsToRevoke" />
+              <permissions-list [rows]="user()?.permissions?.data" [(selected)]="permissionsToRevoke" />
             </div>
           </div>
         </div></div
