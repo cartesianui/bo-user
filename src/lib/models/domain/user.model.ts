@@ -23,7 +23,7 @@ export interface IUser {
     { key: 'name', label: 'Name', opt: { validators: [Validators.required, Validators.maxLength(255)] } },
     { key: 'email', label: 'Email', opt: { validators: [Validators.required, Validators.email] } },
     { key: 'gender', label: 'Gender', opt: {} },
-    { key: 'birth', label: 'Birth Date', opt: {} },
+    { key: 'birth', label: 'Birth Date', opt: { formatter: { type: 'date' } } },
     { key: 'password', label: 'Password', opt: { validators: [Validators.minLength(8)] } },
     { key: 'confirmPassword', label: 'Confirm Password', opt: {} },
   ],

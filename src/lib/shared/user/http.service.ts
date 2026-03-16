@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IHttpService, HttpService, POST, GET, Body, Criteria, DefaultHeaders, RequestCriteriaOuput, Path, DELETE, PATCH, PUT, ICartesianResponse } from '@cartesianui/core';
+import { IHttpService, HttpService, POST, GET, Body, Criteria, DefaultHeaders, RequestCriteriaOuput, Path, Query, DELETE, PATCH, PUT, ICartesianResponse } from '@cartesianui/core';
 import { User, UserPermission, UserRole } from '../../models';
 
 export type IUserHttpServiceExtension = {
@@ -28,7 +28,7 @@ export class UserHttpService extends HttpService implements IHttpService<User, I
   }
 
   @GET('/users/{id}')
-  public getById(@Path('id') id: string): Observable<any> {
+  public getById(@Path('id') id: string, @Query('include') includes?: string): Observable<any> {
     return null;
   }
 
