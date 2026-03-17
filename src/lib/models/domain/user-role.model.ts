@@ -7,10 +7,7 @@ interface IUserRoles {
 }
 
 @EntityMeta({
-  search: {
-    id: { column: 'id', operator: '=', value: null },
-    name: { column: 'name', operator: '=', value: null }
-  }
+  search: []
 })
 export class UserRole extends BaseModel implements IUserRoles {
   id: string;

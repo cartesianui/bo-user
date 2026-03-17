@@ -7,9 +7,7 @@ interface IUserPermission {
 }
 
 @EntityMeta({
-  search: {
-
-  }
+  search: []
 })
 export class UserPermission extends BaseModel implements IUserPermission {
   id: string;

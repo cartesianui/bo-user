@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit, AfterViewInit, OnDestroy, effect, inject } from '@angular/core';
-import { ListingControlsComponent, ENTITY_CONSTRUCTOR, RequestType, AppDatatableComponent } from '@cartesianui/common';
+import { ListingControlsComponent, ENTITY_CONSTRUCTOR, RequestType, AppDatatableComponent, SearchPanelComponent } from '@cartesianui/common';
 import { UserSandbox } from '../user.sandbox';
 import { IUser, User } from '../models';
 import { LISTING_IMPORTS } from '../user.imports';
@@ -19,6 +19,7 @@ type UserChildComponent = typeof childComponents;
     imports: [
       ...LISTING_IMPORTS,
       AppDatatableComponent,
+      SearchPanelComponent,
       CreateUserComponent,
       EditUserComponent
     ],
@@ -56,11 +57,6 @@ export class UsersComponent extends ListingControlsComponent<IUser, UserChildCom
   edit(user: User): void {
     this.sb.user.select(user);
     this.showChildComponent(this.childComponents.editUser, 'editUser');
-  }
-
-  onSearch($event: { text: string }): void {
-    this.criteria.page(1);
-    this.criteria.updateForm('name', $event.text);
   }
 
   onDelete() {

@@ -27,10 +27,10 @@ export interface IUser {
     { key: 'password', label: 'Password', opt: { validators: [Validators.minLength(8)] } },
     { key: 'confirmPassword', label: 'Confirm Password', opt: {} },
   ],
-  search: {
-    name:{ column: 'name', operator: '=', value: null },
-    email: { column: 'email', operator: '=', value: null }
-  }
+  search: [
+    'name:like',
+    'email'
+  ]
 })
 export class User extends BaseModel implements IUser {
   public id: string;
