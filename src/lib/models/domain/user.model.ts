@@ -1,6 +1,6 @@
 import { BaseModel, EntityMeta } from '@cartesianui/common';
 import { Validators } from '@angular/forms';
-import { Role } from '@cartesianui/system-auth';
+import { Role, Permission } from '@cartesianui/system-auth';
 
 export interface IUser {
   id?: string | undefined;
@@ -12,12 +12,32 @@ export interface IUser {
   confirmed?: boolean | undefined;
   password?: string;
   logged?: boolean | undefined;
+  roles?: Role[] | undefined
+  permissions?: Permission[] | undefined
 }
 
 @EntityMeta({
   list: [
-    { key: 'name', label: 'Name', opt: { link: true } },
-    { key: 'email', label: 'Email', opt: {} },
+    { key: 'name', label: 'Name', opt: {
+      link: true,
+      formatter: {
+        type: 'multiline',
+        separator: 'br',
+        items: [
+          { key: 'name', displayAs: 'text' },
+          { key: 'email', displayAs: 'muted' }
+        ]
+      }
+    }},
+    { key: 'roles', label: 'Roles', opt: {
+      formatter: {
+        type: 'func',
+        func: (value: any) => {
+          if (!value || !Array.isArray(value)) return '';
+          return value.map((r: any) => `<span class="badge bg-info me-1">${r.displayName || r.name}</span>`).join('');
+        }
+      }
+    }},
   ],
   form: [
     { key: 'name', label: 'Name', opt: { validators: [Validators.required, Validators.maxLength(255)] } },
@@ -41,11 +61,17 @@ export class User extends BaseModel implements IUser {
   public email: string;
   public gender: string;
   public logged: boolean;
-  public roles: any; //Role[];
-  public permissions: any;
+  public roles: Role[] = [];
+  public permissions: Permission[] = [];
 
-  constructor(data?: IUser) {
+  constructor(data?: any) {
     super(data);
+    if (data?.roles?.data) {
+      this.roles = data.roles.data;
+    }
+    if (data?.permissions?.data) {
+      this.permissions = data.permissions.data;
+    }
   }
 
 

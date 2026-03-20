@@ -91,16 +91,16 @@
     <tab heading="Roles" (selectTab)="onSelectTab($event)">
       <div class="row">
         <div class="col-md-5">
-          <roles-lookup [formControl]="rolesToAttachControl" [ignoreOptions]="user()?.roles?.data" />
+          <roles-lookup [formControl]="rolesToAttachControl" [ignoreOptions]="user()?.roles" />
         </div>
         <div class="col-md-7">
           <div class="card mt-2">
             <div class="card-header">
               <strong>Current Roles</strong>
-              <small class="float-end text-muted">{{ user()?.roles?.data?.length ?? 0 }} assigned</small>
+              <small class="float-end text-muted">{{ user()?.roles?.length ?? 0 }} assigned</small>
             </div>
             <div class="card-body">
-              <roles-list [rows]="user()?.roles?.data" [(selected)]="rolesToRevoke" />
+              <roles-list [rows]="user()?.roles" [(selected)]="rolesToRevoke" />
             </div>
           </div>
         </div>
@@ -109,16 +109,16 @@
     <tab heading="Permissions" (selectTab)="onSelectTab($event)">
       <div class="row">
         <div class="col-md-5">
-          <permissions-lookup [(selected)]="permissionsToAttach" [ignoreOptions]="user()?.permissions?.data" />
+          <permissions-lookup [(selected)]="permissionsToAttach" [ignoreOptions]="user()?.permissions" />
         </div>
         <div class="col-md-7">
           <div class="card mt-2">
             <div class="card-header">
               <strong>Current Permissions</strong>
-              <small class="float-end text-muted">{{ user()?.permissions?.data?.length ?? 0 }} assigned</small>
+              <small class="float-end text-muted">{{ user()?.permissions?.length ?? 0 }} assigned</small>
             </div>
             <div class="card-body">
-              <permissions-list [rows]="user()?.permissions?.data" [(selected)]="permissionsToRevoke" />
+              <permissions-list [rows]="user()?.permissions" [(selected)]="permissionsToRevoke" />
             </div>
           </div>
         </div>
