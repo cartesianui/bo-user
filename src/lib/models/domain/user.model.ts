@@ -24,6 +24,7 @@ export interface IUser {
         type: 'multiline',
         separator: 'br',
         items: [
+          { key: 'image.variants.original.url', type: 'image', class: '32' },
           { key: 'name', displayAs: 'text' },
           { key: 'email', displayAs: 'muted' }
         ]
@@ -63,9 +64,13 @@ export class User extends BaseModel implements IUser {
   public logged: boolean;
   public roles: Role[] = [];
   public permissions: Permission[] = [];
+  image?: any;
 
   constructor(data?: any) {
     super(data);
+    if (data?.image?.data && !Array.isArray(data.image.data)) {
+      this.image = data.image.data;
+    }
     if (data?.roles?.data) {
       this.roles = data.roles.data;
     }

@@ -32,6 +32,18 @@
           <div class="card">
             <div class="card-header"><strong>Profile</strong></div>
             <div class="card-body">
+              <!-- Avatar -->
+              <div class="text-center mb-3">
+                <image-picker
+                  entityType="users"
+                  [entityId]="user()?.id"
+                  mode="avatar"
+                  [editable]="true"
+                  [removable]="true"
+                  displayVariant="thumb"
+                ></image-picker>
+              </div>
+
               <form autocomplete="off" [formGroup]="formGroup">
                 <div class="form-group required">
                   <with-validation>

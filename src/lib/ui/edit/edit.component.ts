@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Signal, OnDestroy, effect, inject }
 import { FormControl, FormGroup } from '@angular/forms';
 import { BaseComponent, DatetimeService, RequestType } from '@cartesianui/common';
 import { Role, Permission, PermissionsWidgetComponent, RolesLookupWidgetComponent, PermissionsLookupWidgetComponent, RolesWidgetComponent } from '@cartesianui/system-auth';
+import { ImagePickerComponent } from '@cartesianui/shared-gallery';
 import { User, UserPermission, UserRole } from '../../models';
 import { UserSandbox } from '../../user.sandbox';
 import { TabDirective } from 'ngx-bootstrap/tabs';
@@ -17,6 +18,7 @@ import { FORM_IMPORTS } from '../../user.imports';
       PermissionsLookupWidgetComponent,
       RolesWidgetComponent,
       RolesLookupWidgetComponent,
+      ImagePickerComponent,
     ],
     standalone: true
 })

@@ -47,7 +47,7 @@ export class UsersComponent extends ListingControlsComponent<IUser, UserChildCom
 
   ngOnInit(): void {
     this.loadEntityMetadata();
-    this.initCriteria().with('roles,permissions');
+    this.initCriteria().with('roles,permissions,image');
   }
 
   protected list(): void {
