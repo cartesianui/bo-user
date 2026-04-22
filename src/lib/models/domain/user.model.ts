@@ -1,6 +1,21 @@
-import { BaseModel, EntityMeta } from '@cartesianui/common';
+import { BaseModel, enumMeta, EntityMeta } from '@cartesianui/common';
 import { Validators } from '@angular/forms';
 import { Role, Permission } from '@cartesianui/system-auth';
+
+// Canonical Gender enum for all user-derived entities (Patient, Doctor, Customer,
+// Vendor, Employee, Artist, Agent, etc.). Overriding locally is supported — just
+// re-declare a narrower `GenderMeta` in the consuming lib if different visuals are needed.
+export const Genders = {
+  MALE: 'male',
+  FEMALE: 'female',
+  OTHER: 'other'
+} as const;
+export type Gender = (typeof Genders)[keyof typeof Genders];
+export const GenderMeta = enumMeta(Genders, {
+  labels: { male: 'Male',      female: 'Female',    other: 'Other'         },
+  colors: { male: 'primary',   female: 'success',   other: 'secondary'     },
+  icons:  { male: 'fa fa-mars', female: 'fa fa-venus', other: 'fa fa-genderless' },
+});
 
 export interface IUser {
   id?: string | undefined;
