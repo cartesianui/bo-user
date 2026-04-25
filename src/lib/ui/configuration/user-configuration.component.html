@@ -1,51 +1,43 @@
 <form novalidate autocomplete="off" [formGroup]="formGroup" (ngSubmit)="update()">
-  <div class="main-content row mb-2">
-    <div class="col-sm-12">
-      <button type="submit" class="btn btn-primary float-end ms-2" [disabled]="!formGroup.valid"><i class="fa fa-save"></i> Save all</button>
-    </div>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">User Configuration</h4>
+    <button type="submit" class="btn btn-primary" [disabled]="!formGroup.valid || !configuration?.id">
+      <i class="fa fa-save"></i> Save
+    </button>
   </div>
 
-  <div class="">
-    <tabset>
-      <!--  Time Zone tab -->
-      <tab heading="Time Zone">
-        <div class="row">
-          <div class="col-md-5">
-            <div class="card">
-              <div class="card-body">
-                <!-- Time Zone Info section -->
-                <div formGroupName="timing">
-                  <div formGroupName="timeZoneInfo">
-                    <div class="col-sm-12" formGroupName="iana">
-                      <div class="form-group required">
-                        <label><h5>Time Zone Information</h5></label><br />
-                        <label><h6>Time Zone ID (IANA)</h6></label>
-                        <div class="input-group mb-3 required">
-                          <input type="text" formControlName="timeZoneId" class="form-control" />
-                        </div>
-                      </div>
-                    </div>
+  <tabset>
+    <tab heading="Time Zone">
+      <div class="row mt-3">
+        <div class="col-lg-8 col-md-10">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="mb-0">Time Zone</h5>
+              <small class="text-muted">Controls how dates and times are interpreted for this user.</small>
+            </div>
+            <div class="card-body">
+              <div formGroupName="timing">
+                <div formGroupName="timeZoneInfo">
+                  <div formGroupName="iana" class="mb-3">
+                    <label for="timeZoneId" class="form-label">Time Zone ID (IANA)</label>
+                    <input type="text" id="timeZoneId" formControlName="timeZoneId" class="form-control" placeholder="e.g. Asia/Karachi" />
+                    <small class="text-muted">Use the canonical IANA name (e.g. <code>Asia/Karachi</code>, <code>Etc/UTC</code>).</small>
                   </div>
                 </div>
-                <!--  Clock Provider Info section -->
-                <div class="col-sm-12" formGroupName="clock">
-                  <div class="form-group required">
-                    <label><h6>Clock Provider</h6></label>
-                    <div class="input-group mb-3 required">
-                      <select formControlName="provider" class="form-control" placeholder="Select Clock Provider">
-                        <option value="unspecifiedClockProvider">Clock Provider</option>
-                        <option value="Providerclock">Provider Clock</option>
-                        <option value="serviceProvider">Service Provider</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
+              </div>
+
+              <div formGroupName="clock" class="mb-2">
+                <label for="provider" class="form-label">Clock Provider</label>
+                <select id="provider" formControlName="provider" class="form-select">
+                  <option value="unspecifiedClockProvider">Unspecified</option>
+                  <option value="utcClockProvider">UTC</option>
+                  <option value="localClockProvider">Local</option>
+                </select>
               </div>
             </div>
           </div>
         </div>
-      </tab>
-      <!-- End Invoice tabs -->
-    </tabset>
-  </div>
+      </div>
+    </tab>
+  </tabset>
 </form>

@@ -1,17 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { Injector, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BaseComponent } from '@cartesianui/common';
+import { Configuration, ConfigurationSandbox } from '@cartesianui/system-configuration';
 import { FORM_IMPORTS } from '../../user.imports';
-// import { Configuration, ConfigurationSandbox } from '@cartesianui/system-configuration';
 
 @Component({
     selector: 'user-configuration',
     templateUrl: './user-configuration.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [...FORM_IMPORTS],
     standalone: true
 })
 export class UserConfigurationComponent extends BaseComponent implements OnInit, OnDestroy {
+
+  protected _sandbox = inject(ConfigurationSandbox);
+  private _cdr = inject(ChangeDetectorRef);
+
+  @Input() entityId?: string;
+
   formGroup = new FormGroup({
     timing: new FormGroup({
       timeZoneInfo: new FormGroup({
@@ -25,52 +31,43 @@ export class UserConfigurationComponent extends BaseComponent implements OnInit,
     })
   });
 
-  loading: boolean;
-  loaded: boolean;
-  failed: boolean;
-  // configuration: Configuration;
+  configuration: Configuration | null = null;
 
   ngOnInit(): void {
     this.addSubscriptions();
-    this.getConfiguration();
+    const id = this.entityId ?? cartesian.session?.userId?.toString();
+    if (!id) return;
+    this._sandbox.clear();
+    this._sandbox.loadForEntity('users', id);
   }
 
-  update() {
-    const configurations = this.formGroup.value;
-    // const form = new Configuration({
-    //   id: this.configuration.id,
-    //   key: 'user',
-    //   configuration: configurations
-    // });
-
-    // this._sandbox.updateConfiguration(form);
+  update(): void {
+    if (!this.configuration?.id) return;
+    this._sandbox.save(this.configuration.id, this.formGroup.value);
   }
 
-  addSubscriptions() {
-    // this.subscriptions.push(
-    //   this._sandbox.configuration$.subscribe((configuration: any) => {
-    //     if (configuration) {
-    //       this.configuration = configuration;
-    //       this.formGroup.reset();
-    //       this.formGroup.patchValue(this.configuration.configuration);
-    //     }
-    //   })
-    // );
+  addSubscriptions(): void {
+    this.subscriptions.push(
+      this._sandbox.current$.subscribe((configuration) => {
+        if (configuration) {
+          this.configuration = configuration;
+          this.formGroup.reset();
+          this.formGroup.patchValue(configuration.configuration || {});
+          this._cdr.markForCheck();
+        }
+      })
+    );
   }
 
-  getConfiguration() {
-    // this._sandbox.getConfigurationByType('user');
-  }
-
-  getFormClasses(controlName: string): string {
-    const control = this.formGroup.controls[controlName];
-    if (control.value === '') {
-      return '';
-    }
-    if (control.valid) {
-      return 'is-valid';
-    } else if (control.dirty && control.touched) {
-      return 'is-invalid';
-    }
-  }
+  // getFormClasses(controlName: string): string {
+  //   const control = this.formGroup.controls[controlName];
+  //   if (control.value === '') {
+  //     return '';
+  //   }
+  //   if (control.valid) {
+  //     return 'is-valid';
+  //   } else if (control.dirty && control.touched) {
+  //     return 'is-invalid';
+  //   }
+  // }
 }
