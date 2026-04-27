@@ -18,6 +18,12 @@ export class UserConfigurationComponent extends BaseComponent implements OnInit,
 
   @Input() entityId?: string;
 
+  /**
+   * When true, render only the card (no header, no tabset). Used when
+   * embedded inside another component that already provides chrome.
+   */
+  @Input() bare = false;
+
   formGroup = new FormGroup({
     timing: new FormGroup({
       timeZoneInfo: new FormGroup({

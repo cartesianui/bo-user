@@ -1,0 +1,111 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h4 class="mb-0">User Settings</h4>
+</div>
+
+<tabset>
+  <!-- ─── Profile ────────────────────────────── -->
+  <tab heading="Profile" (selectTab)="onSelectTab($event)">
+    <div class="row mt-3">
+      <div class="col-lg-8 col-md-10">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">Profile</h5>
+            <small class="text-muted">Your personal details and avatar.</small>
+          </div>
+          <div class="card-body">
+            @if (userId()) {
+              <div class="text-center mb-4">
+                <image-picker
+                  entityType="users"
+                  [entityId]="userId()"
+                  mode="avatar"
+                  [editable]="true"
+                  [removable]="true"
+                  displayVariant="thumb">
+                </image-picker>
+              </div>
+            }
+
+            <form autocomplete="off" [formGroup]="formGroup" (ngSubmit)="onUpdateProfile()">
+              <div class="mb-3">
+                <with-validation>
+                  <label class="form-label">Name</label>
+                  <input validate type="text" formControlName="name" class="form-control" placeholder="Name" required />
+                </with-validation>
+              </div>
+
+              <div class="mb-3">
+                <with-validation>
+                  <label class="form-label">Gender</label>
+                  <select validate formControlName="gender" class="form-select" inCollection="['male', 'female']">
+                    <option value="" disabled hidden>Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                </with-validation>
+              </div>
+
+              <div class="mb-3">
+                <with-validation>
+                  <label class="form-label">Birth Date</label>
+                  <input validate bsDatepicker type="text" formControlName="birth" class="form-control" placeholder="Birth Date" />
+                </with-validation>
+              </div>
+
+              <button type="submit" class="btn btn-primary" [disabled]="formGroup.invalid || !formGroup.dirty">
+                <i class="fa fa-save"></i> Save Profile
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </tab>
+
+  <!-- ─── Security ───────────────────────────── -->
+  <tab heading="Security" (selectTab)="onSelectTab($event)">
+    <div class="row mt-3">
+      <div class="col-lg-8 col-md-10">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">Security</h5>
+            <small class="text-muted">Update your password.</small>
+          </div>
+          <div class="card-body">
+            <form autocomplete="off" [formGroup]="formGroupCredentials" (ngSubmit)="onUpdateCredentials()">
+              <div class="mb-3">
+                <with-validation>
+                  <label class="form-label">Current Password</label>
+                  <input validate formControlName="currentPassword" type="password" class="form-control" placeholder="Current Password" requireRelativeTo="newPassword" />
+                </with-validation>
+              </div>
+
+              <div class="mb-3">
+                <with-validation>
+                  <label class="form-label">New Password</label>
+                  <input validate formControlName="newPassword" type="password" class="form-control" placeholder="Minimum 8 characters" requireRelativeTo="currentPassword" minlength="8" />
+                </with-validation>
+              </div>
+
+              <div class="mb-3">
+                <with-validation>
+                  <label class="form-label">Confirm Password</label>
+                  <input validate formControlName="confirmPassword" type="password" class="form-control" placeholder="Re-enter new password" equalTo="newPassword" />
+                </with-validation>
+              </div>
+
+              <button type="submit" class="btn btn-primary" [disabled]="formGroupCredentials.invalid || !formGroupCredentials.dirty">
+                <i class="fa fa-save"></i> Save Password
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </tab>
+
+  <!-- ─── Time Zone (configuration) ──────────── -->
+  <tab heading="Time Zone" (selectTab)="onSelectTab($event)">
+    <user-configuration [bare]="true"></user-configuration>
+  </tab>
+</tabset>
