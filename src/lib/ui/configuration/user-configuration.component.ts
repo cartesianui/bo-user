@@ -1,79 +1,33 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BaseComponent } from '@cartesianui/common';
-import { Configuration, ConfigurationSandbox } from '@cartesianui/system-configuration';
-import { FORM_IMPORTS } from '../../user.imports';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { EntityConfigurationComponent } from '@cartesianui/system-configuration';
 
+/**
+ * Thin route-level wrapper around <entity-configuration> for user scope.
+ * After Phase 4.D (legacy migration complete), every user-scope section
+ * is schema-driven — currently just `timing` (per-user time-zone override).
+ *
+ * The `bare` input previously let consumers render without the component's
+ * own header chrome. <entity-configuration> doesn't add any chrome of its
+ * own beyond the section tabs + Save button, so `bare` is a no-op now;
+ * preserved as an Input for backwards-compatibility with existing
+ * callsites.
+ */
 @Component({
-    selector: 'user-configuration',
-    templateUrl: './user-configuration.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [...FORM_IMPORTS],
-    standalone: true
+  selector: 'user-configuration',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [EntityConfigurationComponent],
+  standalone: true,
+  template: `
+    <entity-configuration entityType="users" [entityId]="resolvedEntityId"></entity-configuration>
+  `,
 })
-export class UserConfigurationComponent extends BaseComponent implements OnInit, OnDestroy {
-
-  protected _sandbox = inject(ConfigurationSandbox);
-  private _cdr = inject(ChangeDetectorRef);
-
+export class UserConfigurationComponent {
   @Input() entityId?: string;
 
-  /**
-   * When true, render only the card (no header, no tabset). Used when
-   * embedded inside another component that already provides chrome.
-   */
+  /** No-op since the schema-driven widget doesn't add header chrome. */
   @Input() bare = false;
 
-  formGroup = new FormGroup({
-    timing: new FormGroup({
-      timeZoneInfo: new FormGroup({
-        iana: new FormGroup({
-          timeZoneId: new FormControl('', Validators.required)
-        })
-      })
-    }),
-    clock: new FormGroup({
-      provider: new FormControl('', Validators.required)
-    })
-  });
-
-  configuration: Configuration | null = null;
-
-  ngOnInit(): void {
-    this.addSubscriptions();
-    const id = this.entityId ?? cartesian.session?.userId?.toString();
-    if (!id) return;
-    this._sandbox.clear();
-    this._sandbox.loadForEntity('users', id);
+  protected get resolvedEntityId(): string | undefined {
+    return this.entityId ?? cartesian.session?.userId?.toString();
   }
-
-  update(): void {
-    if (!this.configuration?.id) return;
-    this._sandbox.save(this.configuration.id, this.formGroup.value);
-  }
-
-  addSubscriptions(): void {
-    this.subscriptions.push(
-      this._sandbox.current$.subscribe((configuration) => {
-        if (configuration) {
-          this.configuration = configuration;
-          this.formGroup.reset();
-          this.formGroup.patchValue(configuration.configuration || {});
-          this._cdr.markForCheck();
-        }
-      })
-    );
-  }
-
-  // getFormClasses(controlName: string): string {
-  //   const control = this.formGroup.controls[controlName];
-  //   if (control.value === '') {
-  //     return '';
-  //   }
-  //   if (control.valid) {
-  //     return 'is-valid';
-  //   } else if (control.dirty && control.touched) {
-  //     return 'is-invalid';
-  //   }
-  // }
 }
