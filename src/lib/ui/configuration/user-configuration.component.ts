@@ -3,8 +3,11 @@ import { EntityConfigurationComponent } from '@cartesianui/system-configuration'
 
 /**
  * Thin route-level wrapper around <entity-configuration> for user scope.
- * After Phase 4.D (legacy migration complete), every user-scope section
- * is schema-driven — currently just `timing` (per-user time-zone override).
+ * Renders every registered user-scope schema section as a tab. Today the
+ * only user-scope section is `regional` (per-user formatting + time zone +
+ * locale override — owned by the localization workstream). When new
+ * user-scope sections register (language, notifications, …), they appear
+ * here automatically with no changes to this component.
  *
  * The `bare` input previously let consumers render without the component's
  * own header chrome. <entity-configuration> doesn't add any chrome of its
