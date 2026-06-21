@@ -32,9 +32,12 @@
             </with-validation>
           </div>
 
-          <button type="submit" class="btn btn-primary" [disabled]="formGroupCredentials.invalid || !formGroupCredentials.dirty">
-            <i class="fa fa-save"></i> Save Password
-          </button>
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-sm btn-primary d-flex align-items-center gap-1" [disabled]="formGroupCredentials.invalid || !formGroupCredentials.dirty">
+              <i class="fa fa-save"></i>
+              <span>Save Password</span>
+            </button>
+          </div>
         </form>
       </div>
     </div>

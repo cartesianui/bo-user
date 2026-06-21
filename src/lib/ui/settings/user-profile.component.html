@@ -49,9 +49,12 @@
             </with-validation>
           </div>
 
-          <button type="submit" class="btn btn-primary" [disabled]="formGroup.invalid || !formGroup.dirty">
-            <i class="fa fa-save"></i> Save Profile
-          </button>
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-sm btn-primary d-flex align-items-center gap-1" [disabled]="formGroup.invalid || !formGroup.dirty">
+              <i class="fa fa-save"></i>
+              <span>Save Profile</span>
+            </button>
+          </div>
         </form>
       </div>
     </div>
