@@ -54,11 +54,7 @@
                 <div class="form-group required mt-2">
                   <with-validation>
                     <label class="form-label">Gender</label>
-                    <select validate type="text" formControlName="gender" class="form-select" required inCollection="['male', 'female']">
-                      <option value="" disabled hidden>Gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                    </select>
+                    <select-control validate required formControlName="gender" inCollection="['male', 'female']" [options]="[{value:'male',name:'Male'},{value:'female',name:'Female'}]" optionKey="value" optionField="name" placeholder="Gender"></select-control>
                   </with-validation>
                 </div>
                 <div class="form-group required mt-2">

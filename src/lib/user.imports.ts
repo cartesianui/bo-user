@@ -19,8 +19,8 @@ import {
 } from '@swimlane/ngx-datatable';
 
 // Cartesian UI modules
-import { CommonModule as CartesianCommonModule } from '@cartesianui/common';
-import { BoLayoutModule } from '@cartesianui/coreui';
+import { CommonModule as CartesianCommonModule , SelectControlComponent } from '@cartesianui/common';
+import { ShellModule } from '@cartesianui/coreui';
 
 /**
  * 🧩 Core shared imports
@@ -29,7 +29,7 @@ import { BoLayoutModule } from '@cartesianui/coreui';
 export const COMMON_IMPORTS = [
   CommonModule,
   CartesianCommonModule,
-  BoLayoutModule
+  ShellModule
 ];
 
 /**
@@ -53,4 +53,5 @@ export const FORM_IMPORTS = [
   TabsModule,
   TypeaheadModule,
   BsDatepickerModule,
+  SelectControlComponent,
 ];
