@@ -14,7 +14,7 @@ export type Gender = (typeof Genders)[keyof typeof Genders];
 export const GenderMeta = enumMeta(Genders, {
   labels: { male: 'Male',      female: 'Female',    other: 'Other'         },
   colors: { male: 'primary',   female: 'success',   other: 'secondary'     },
-  icons:  { male: 'fa fa-mars', female: 'fa fa-venus', other: 'fa fa-genderless' },
+  icons:  { male: 'fa-solid fa-mars', female: 'fa-solid fa-venus', other: 'fa-solid fa-genderless' },
 });
 
 export interface IUser {
