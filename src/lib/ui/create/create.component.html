@@ -4,7 +4,10 @@
     save: formGroup.invalid
   }"
 ></page-actions>
-<div class="main-content">
+<!-- QA Q6-B28/B29 — scope the busy overlay to this form. Without
+     `#formContainer`, FormBaseComponent falls back to the GLOBAL overlay,
+     which blocks the whole page while a save is in flight. -->
+<div class="main-content" #formContainer>
   <div class="row">
     <div class="col-md-6">
       <div class="card">
