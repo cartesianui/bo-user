@@ -24,7 +24,9 @@
   }"
 />
 
-<div class="main-content">
+<!-- QA Q6-B28/B29 — see the create form: without `#formContainer` the busy
+     overlay falls back to global and blocks the whole page. -->
+<div class="main-content" #formContainer>
   <tabset>
     <tab heading="General" (selectTab)="onSelectTab($event)">
       <div class="row">
